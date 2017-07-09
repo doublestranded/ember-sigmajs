@@ -1,5 +1,7 @@
 # ember-sigmajs
 
+Ember addon for sigma.js
+
 This README outlines the details of collaborating on this Ember addon.
 
 ## Installation
