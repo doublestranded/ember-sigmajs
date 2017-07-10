@@ -1,12 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  /*
-    component variables
-  */
   attributeBindings: ['style'],
-
-  style: 'height: 100%; width: 100%; position: absolute;',
 
   didInsertElement: function() {
     var context = this.get('element');
