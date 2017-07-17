@@ -15,7 +15,8 @@ export default Ember.Component.extend(ParentMixin, {
     this._graph.refresh();
   },
 
-  didDestroyElement: function() {
-
-  }
+  // TODO
+  // didDestroyElement: function() {
+  //
+  // }
 });
