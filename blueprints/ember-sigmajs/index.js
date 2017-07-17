@@ -1,15 +1,10 @@
 /* eslint-env node */
 module.exports = {
-  description: ''
+  description: '',
 
-  // locals: function(options) {
-  //   // Return custom template variables here.
-  //   return {
-  //     foo: options.entity.options.foo
-  //   };
-  // }
+  normalizeEntityName: function() {},
 
   afterInstall: function(options) {
-    return this.addBowerPackageToProject('sigma.js');
+    return this.addPackageToProject('sigma');
   }
 };
