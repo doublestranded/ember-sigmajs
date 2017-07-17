@@ -12,12 +12,12 @@ export default Ember.Component.extend({
   didInsertElement: function() {
     var context = this.get('element');
     var s = new sigma(context);
-    for (var i in this.get('nodes')) {
-      s.graph.addNode(this.get('nodes')[i]);
-    }
-    for (var j in this.get('edges')) {
-      s.graph.addEdge(this.get('edges')[j]);
-    }
+    this.get('nodes').forEach(function(node){
+      s.graph.addNode(node);
+    });
+    this.get('edges').forEach(function(edge){
+      s.graph.addEdge(edge);
+    });
     s.refresh();
   },
 

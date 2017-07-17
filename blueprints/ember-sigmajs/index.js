@@ -5,6 +5,6 @@ module.exports = {
   normalizeEntityName: function() {},
 
   afterInstall: function(options) {
-    return this.addBowerPackageToProject('sigma.js');
+    return this.addPackageToProject('sigma');
   }
 };
