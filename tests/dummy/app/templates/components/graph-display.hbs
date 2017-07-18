@@ -1,0 +1,8 @@
+{{#sigma-graph clickNode=onClickNode click=onClick}}
+  {{#each model.nodes as |node|}}
+    {{#graph-node clickNode=onClickNode id=node.id label=node.label x=node.x y=node.y size=node.size color=node.color}}{{/graph-node}}
+  {{/each}}
+  {{#each model.edges as |edge|}}
+    {{#graph-edge id=edge.id source=edge.source target=edge.target}}{{/graph-edge}}
+  {{/each}}
+{{/sigma-graph}}

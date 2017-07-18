@@ -1,16 +1,16 @@
-import Ember from 'ember';
+import SigmaBase from './sigma-base';
 import { ChildMixin } from 'ember-composability-tools';
 
-export default Ember.Component.extend(ChildMixin, {
+export default SigmaBase.extend(ChildMixin, {
   attributeBindings: ['source', 'target'],
 
   didInsertParent: function() {
+    this._super(...arguments);
     if (this.get('parentComponent')) {
-      var self = this;
-      this.get('parentComponent')._graph.graph.addEdge({
-        id: self.get('id'),
-        source: self.get('source'),
-        target: self.get('target')
+      this.graph().graph.addEdge({
+        id: this.get('id'),
+        source: this.get('source'),
+        target: this.get('target')
       });
     }
   }

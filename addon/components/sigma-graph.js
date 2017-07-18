@@ -1,11 +1,28 @@
-import Ember from 'ember';
+import SigmaBase from './sigma-base';
 import { ParentMixin } from 'ember-composability-tools';
 
-export default Ember.Component.extend(ParentMixin, {
+export default SigmaBase.extend(ParentMixin, {
   classNames: ['sigma-graph'],
 
+  events: ['click',
+          // 'rightClick',
+          // 'clickStage',
+          // 'doubleClickStage',
+          // 'rightClickStage',
+          // 'clickNodes',
+          // 'doubleClickNodes',
+          // 'rightClickNodes',
+          // 'overNodes',
+          // 'outNode',
+          // 'outNodes',
+          // 'downNode',
+          // 'downNodes',
+          // 'upNode',
+          // 'upNodes'
+        ],
+
   didInsertElement: function() {
-    var context = this.get('element');
+    let context = this.get('element');
     this._graph = new sigma(context);
     this._super(...arguments);
   },
