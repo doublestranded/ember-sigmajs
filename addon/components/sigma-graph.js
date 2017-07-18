@@ -2,28 +2,27 @@ import SigmaBase from './sigma-base';
 import { ParentMixin } from 'ember-composability-tools';
 
 export default SigmaBase.extend(ParentMixin, {
+  attributeBindings: ['settings'],
+
   classNames: ['sigma-graph'],
 
   events: ['click',
-          // 'rightClick',
-          // 'clickStage',
-          // 'doubleClickStage',
-          // 'rightClickStage',
-          // 'clickNodes',
-          // 'doubleClickNodes',
-          // 'rightClickNodes',
-          // 'overNodes',
-          // 'outNode',
-          // 'outNodes',
-          // 'downNode',
-          // 'downNodes',
-          // 'upNode',
-          // 'upNodes'
-        ],
+          'rightClick',
+          'clickStage',
+          'doubleClickStage',
+          'rightClickStage',
+          'clickNodes',
+          'doubleClickNodes',
+          'rightClickNodes',
+          'overNodes',
+          'outNodes',
+          'downNodes',
+          'upNodes'],
 
   didInsertElement: function() {
     let context = this.get('element');
-    this._graph = new sigma(context);
+    let settings = this.get('settings') || {};
+    this._graph = new sigma({ renderer: { container: context, type: 'canvas' }, settings: settings });
     this._super(...arguments);
   },
 

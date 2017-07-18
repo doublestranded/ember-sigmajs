@@ -4,7 +4,13 @@ import { ChildMixin } from 'ember-composability-tools';
 export default SigmaBase.extend(ChildMixin, {
   attributeBindings: ['label', 'x', 'y', 'size', 'color'],
 
-  events: ['clickNode', 'rightClickNode', 'overNode', 'doubleClickNode'],
+  events: ['clickNode',
+          'rightClickNode',
+          'overNode',
+          'doubleClickNode',
+          'outNode',
+          'downNode',
+          'upNode'],
 
   didInsertParent: function() {
     this._super(...arguments);

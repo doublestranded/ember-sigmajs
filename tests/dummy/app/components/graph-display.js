@@ -5,7 +5,19 @@ export default Ember.Component.extend({
     // console.log('test click');
   },
 
-  onClickNode: function() {
-    // console.log('test click node');
+  onClickNode: function(node) {
+    // console.log('test click node ' + node.data.node.label);
+  },
+
+  onOverNode: function(node) {
+    // console.log(node);
+  },
+
+  onOverEdge: function(edge) {
+    console.log(edge);
+  },
+
+  onClickNodes: function(nodes) {
+    // console.log(nodes);
   }
 });
