@@ -19,4 +19,15 @@ export default Ember.Component.extend({
       }
     });
   },
+
+  willDestroyElement: function() {
+    this._super(...arguments);
+    this._unbindEvents();
+  },
+
+  _unbindEvents: function() {
+    this.get('events').forEach((eventName) => {
+      this.graph().unbind(eventName);
+    });
+  }
 });
