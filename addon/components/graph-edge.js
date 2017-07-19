@@ -15,11 +15,25 @@ export default SigmaBase.extend(ChildMixin, {
   didInsertParent: function() {
     this._super(...arguments);
     if (this.get('parentComponent')) {
-      this.graph().graph.addEdge({
-        id: this.get('id'),
-        source: this.get('source'),
-        target: this.get('target')
+      let attrs = { id: this.get('id') };
+      this.get('attributeBindings').forEach((attr) => {
+        if (this.get(attr) !== undefined) attrs[attr] = this.get(attr);
       });
+      let graph = this.get('parentComponent')._graph.graph;
+      if (graph.nodes(attrs.source) && graph.nodes(attrs.target)) {
+        graph.addEdge(attrs);
+        if (!this.get('refreshed')) this.get('parentComponent')._graph.refresh();
+      }
+    }
+  },
+
+  willDestroyElement: function() {
+    this._super(...arguments);
+    if (this.get('parentComponent')._graph) {
+      if (this.get('parentComponent')._graph.graph.edges(this.get('id'))) {
+        this.get('parentComponent')._graph.graph.dropEdge(this.get('id'));
+        this.get('parentComponent')._graph.refresh();
+      }
     }
   }
 });

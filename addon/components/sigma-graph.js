@@ -24,15 +24,13 @@ export default SigmaBase.extend(ParentMixin, {
     let settings = this.get('settings') || {};
     this._graph = new sigma({ renderer: { container: context, type: 'canvas' }, settings: settings });
     this._super(...arguments);
-  },
-
-  invokeChildDidInsertHooks() {
-    this._super(...arguments);
     this._graph.refresh();
+    this.set('refreshed', true);
   },
 
-  // TODO
-  // didDestroyElement: function() {
-  //
-  // }
+  willDestroyElement: function() {
+    this._super(...arguments);
+    this._graph.graph.clear();
+    delete this._graph;
+  }
 });
