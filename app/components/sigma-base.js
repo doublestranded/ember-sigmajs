@@ -1,1 +1,0 @@
-export { default } from 'ember-sigmajs/components/sigma-base';

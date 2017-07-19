@@ -1,16 +1,7 @@
-import SigmaBase from './sigma-base';
-import { ChildMixin } from 'ember-composability-tools';
+import SigmaChildBase from './sigma-child-base';
 
-export default SigmaBase.extend(ChildMixin, {
+export default SigmaChildBase.extend({
   attributeBindings: ['label', 'x', 'y', 'size', 'color'],
-
-  events: ['clickNode',
-          'rightClickNode',
-          'overNode',
-          'doubleClickNode',
-          'outNode',
-          'downNode',
-          'upNode'],
 
   didInsertParent: function() {
     this._super(...arguments);
@@ -19,17 +10,17 @@ export default SigmaBase.extend(ChildMixin, {
       this.get('attributeBindings').forEach((attr) => {
         if (this.get(attr) !== undefined) attrs[attr] = this.get(attr);
       });
-      this.get('parentComponent')._graph.graph.addNode(attrs);
-      if (!this.get('refreshed')) this.get('parentComponent')._graph.refresh();
+      this.graphModel().addNode(attrs);
+      if (!this.get('refreshed')) this.sigma().refresh();
     }
   },
 
   willDestroyElement: function() {
     this._super(...arguments);
-    if (this.get('parentComponent')._graph) {
-      if (this.get('parentComponent')._graph.graph.nodes(this.get('id'))) {
-        this.get('parentComponent')._graph.graph.dropNode(this.get('id'));
-        this.get('parentComponent')._graph.refresh();
+    if (this.sigma()) {
+      if (this.graphModel().nodes(this.get('id'))) {
+        this.graphModel().dropNode(this.get('id'));
+        this.sigma().refresh();
       }
     }
   }

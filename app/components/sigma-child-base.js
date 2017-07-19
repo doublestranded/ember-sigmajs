@@ -1,0 +1,1 @@
+export { default } from 'ember-sigmajs/components/sigma-child-base';

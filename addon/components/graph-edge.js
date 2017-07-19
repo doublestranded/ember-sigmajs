@@ -1,16 +1,7 @@
-import SigmaBase from './sigma-base';
-import { ChildMixin } from 'ember-composability-tools';
+import SigmaChildBase from './sigma-child-base';
 
-export default SigmaBase.extend(ChildMixin, {
+export default SigmaChildBase.extend({
   attributeBindings: ['source', 'target'],
-
-  events: ['clickEdge',
-          'rightClickEdge',
-          'overEdge',
-          'doubleClickEdge',
-          'outEdge',
-          'downEdge',
-          'upEdge'],
 
   didInsertParent: function() {
     this._super(...arguments);
@@ -19,20 +10,19 @@ export default SigmaBase.extend(ChildMixin, {
       this.get('attributeBindings').forEach((attr) => {
         if (this.get(attr) !== undefined) attrs[attr] = this.get(attr);
       });
-      let graph = this.get('parentComponent')._graph.graph;
-      if (graph.nodes(attrs.source) && graph.nodes(attrs.target)) {
-        graph.addEdge(attrs);
-        if (!this.get('refreshed')) this.get('parentComponent')._graph.refresh();
+      if (this.graphModel().nodes(attrs.source) && this.graphModel().nodes(attrs.target)) {
+        this.graphModel().addEdge(attrs);
+        if (!this.get('refreshed')) this.sigma().refresh();
       }
     }
   },
 
   willDestroyElement: function() {
     this._super(...arguments);
-    if (this.get('parentComponent')._graph) {
-      if (this.get('parentComponent')._graph.graph.edges(this.get('id'))) {
-        this.get('parentComponent')._graph.graph.dropEdge(this.get('id'));
-        this.get('parentComponent')._graph.refresh();
+    if (this.sigma()) {
+      if (this.graphModel().edges(this.get('id'))) {
+        this.graphModel().dropEdge(this.get('id'));
+        this.sigma().refresh();
       }
     }
   }
