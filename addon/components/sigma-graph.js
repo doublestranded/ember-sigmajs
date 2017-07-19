@@ -8,15 +8,13 @@ export default Ember.Component.extend(ParentMixin, {
     var context = this.get('element');
     this._graph = new sigma(context);
     this._super(...arguments);
-  },
-
-  invokeChildDidInsertHooks() {
-    this._super(...arguments);
     this._graph.refresh();
+    this.set('refreshed', true);
   },
 
-  // TODO
-  // didDestroyElement: function() {
-  //
-  // }
+  willDestroyElement: function() {
+    this._super(...arguments);
+    this._graph.graph.clear();
+    delete this._graph;
+  }
 });

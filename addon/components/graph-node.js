@@ -6,15 +6,22 @@ export default Ember.Component.extend(ChildMixin, {
 
   didInsertParent: function() {
     if (this.get('parentComponent')) {
-      var self = this;
-      this.get('parentComponent')._graph.graph.addNode({
-        id: self.get('id'),
-        label: self.get('label'),
-        x: self.get('x'),
-        y: self.get('y'),
-        size: self.get('size'),
-        color: self.get('color')
+      let attrs = { id: this.get('id') };
+      this.get('attributeBindings').forEach((attr) => {
+        if (this.get(attr) !== undefined) attrs[attr] = this.get(attr);
       });
+      this.get('parentComponent')._graph.graph.addNode(attrs);
+      if (!this.get('refreshed')) this.get('parentComponent')._graph.refresh();
+    }
+  },
+
+  willDestroyElement: function() {
+    this._super(...arguments);
+    if (this.get('parentComponent')._graph) {
+      if (this.get('parentComponent')._graph.graph.nodes(this.get('id'))) {
+        this.get('parentComponent')._graph.graph.dropNode(this.get('id'));
+        this.get('parentComponent')._graph.refresh();
+      }
     }
   }
 });
