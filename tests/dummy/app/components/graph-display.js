@@ -2,19 +2,19 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   onClick: function() {
-    console.log('test click');
+    // console.log('test click');
   },
-  onClickNode: function(node) {
-    console.log('test click node ' + node.data.node.label);
+  onClickNode: function(/*node*/) {
+    // console.log('test click node ' + node.data.node.label);
   },
-  onOverNode: function(node) {
-    console.log('test over node ' + node.data.node.label);
+  onOverNode: function(/*node*/) {
+    // console.log('test over node ' + node.data.node.label);
   },
-  onOverEdge: function(edge) {
-    console.log(edge);
+  onOverEdge: function(/*edge*/) {
+    // console.log(edge);
   },
-  onClickNodes: function(nodes) {
-    console.log(nodes);
+  onClickNodes: function(/*nodes*/) {
+    // console.log(nodes);
   },
   actions: {
     toggleEdge: function() {

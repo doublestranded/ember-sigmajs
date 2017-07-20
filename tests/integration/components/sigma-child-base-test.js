@@ -5,21 +5,8 @@ moduleForComponent('sigma-child-base', 'Integration | Component | sigma child ba
   integration: true
 });
 
-test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
-  this.render(hbs`{{sigma-child-base}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#sigma-child-base}}
-      template block text
-    {{/sigma-child-base}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+test('cannot be rendered without sigma-graph parent', function(assert) {
+  assert.expectAssertion(() => {
+    this.render(hbs`{{#sigma-child-base}}{{/sigma-child-base}}`);
+  }, /Assertion Failed: Tried to use .* outside the context of a parent component\./);
 });

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { ParentMixin } from 'ember-composability-tools';
+/*global sigma */
 
 export default Ember.Component.extend(ParentMixin, {
   attributeBindings: ['settings'],

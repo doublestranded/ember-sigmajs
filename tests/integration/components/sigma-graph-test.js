@@ -23,3 +23,12 @@ test('it renders', function(assert) {
 
   assert.equal(this.$().text().trim(), 'template block text');
 });
+
+test('click node event', function(assert) {
+  // assert.expect(0);
+  this.set('onClick', (arg) => {
+    assert.equal(arg.type, 'click');
+  });
+  this.render(hbs`{{#sigma-graph click=onClick}}{{/sigma-graph}}`);
+  this.$('div').click();
+});
