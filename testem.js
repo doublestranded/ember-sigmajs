@@ -8,5 +8,6 @@ module.exports = {
   "launch_in_dev": [
     "PhantomJS",
     "Chrome"
-  ]
+  ],
+  "phantomjs_debug_port": 9000
 };
