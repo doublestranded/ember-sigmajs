@@ -1,15 +1,16 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  showEdge: true,
-  showNode: true,
+  showEdges: true,
+  showNodes: true,
   showGraph: true,
   actions: {
     toggleEdge() {
-      this.toggleProperty('showEdge');
+      this.toggleProperty('showEdges');
     },
     toggleNode() {
-      this.toggleProperty('showNode');
+      this.toggleProperty('showNodes');
+      this.toggleProperty('showEdges');
     },
     toggleGraph() {
       this.toggleProperty('showGraph');

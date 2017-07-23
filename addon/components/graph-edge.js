@@ -6,18 +6,15 @@ export default SigmaChildBase.extend({
   didInsertParent: function() {
     this._super(...arguments);
     if (this.get('parentComponent')) {
-      let attrs = { id: this.get('id') };
-      this.get('attributeBindings').forEach((attr) => {
-        if (this.get(attr) !== undefined) attrs[attr] = this.get(attr);
-      });
+      let attrs = this.getAttrs();
       if (this.graphModel().nodes(attrs.source) && this.graphModel().nodes(attrs.target)) {
         this.graphModel().addEdge(attrs);
-        if (!this.get('refreshed')) this.sigma().refresh();
+        this.sigma().refresh();
       }
     }
   },
 
-  willDestroyElement: function() {
+  willDestroyParent: function() {
     this._super(...arguments);
     if (this.sigma()) {
       if (this.graphModel().edges(this.get('id'))) {
