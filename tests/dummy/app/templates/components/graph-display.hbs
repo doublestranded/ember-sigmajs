@@ -3,12 +3,12 @@
 <button {{action "toggleNode"}}>Hide Node</button>
 {{#if showGraph}}
   {{#sigma-graph clickNode=onClickNode settings=model.settings}}
-    {{#if showNode}}
+    {{#if showNodes}}
       {{#each model.nodes as |node|}}
         {{#graph-node id=node.id label=node.label x=node.x y=node.y size=node.size color=node.color}}{{/graph-node}}
       {{/each}}
     {{/if}}
-    {{#if showEdge}}
+    {{#if showEdges}}
       {{#each model.edges as |edge|}}
         {{#graph-edge id=edge.id source=edge.source target=edge.target}}{{/graph-edge}}
       {{/each}}

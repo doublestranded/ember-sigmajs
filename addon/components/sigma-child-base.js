@@ -8,5 +8,13 @@ export default Ember.Component.extend(ChildMixin, {
 
   graphModel: function() {
     return this.get('parentComponent').graphModel();
+  },
+
+  getAttrs: function() {
+    let attrs = { id: this.get('id') };
+    this.get('attributeBindings').forEach((attr) => {
+      if (this.get(attr) !== undefined) attrs[attr] = this.get(attr);
+    });
+    return attrs;
   }
 });

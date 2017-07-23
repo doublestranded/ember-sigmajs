@@ -4,15 +4,29 @@ var Funnel = require('broccoli-funnel');
 var MergeTrees = require('broccoli-merge-trees');
 var path = require('path');
 
-// Borrowed from:
-//https://github.com/knownasilya/ember-toastr/blob/master/index.js
-
 module.exports = {
   name: 'ember-sigmajs',
 
   included: function(app) {
     this._super.included.apply(this, arguments);
-    this._ensureThisImport();
+
+    // Borrowed from a few existing addons:
+    // e.g. https://github.com/jamesleebaker/ember-truncate/blob/0fc5b9811ac7d8b30e610ebdc1e290b37c9ffdb3/index.js
+
+    // If the addon has the _findHost() method (in ember-cli >= 2.7.0), we'll just
+    // use that.
+    if (typeof this._findHost === 'function') {
+      app = this._findHost();
+    }
+    // Otherwise, we'll use this implementation borrowed from the _findHost()
+    // method in ember-cli.
+    // Keep iterating upward until we don't have a grandparent.
+    // Has to do this grandparent check because at some point we hit the project.
+    var current = this;
+    do {
+      app = current.app || app;
+    } while (current.parent.parent && (current = current.parent));
+
     app.import('vendor/sigma/sigma.min.js');
   },
 
@@ -32,22 +46,5 @@ module.exports = {
     trees.push(sigmaTree);
 
     return new MergeTrees(trees, { overwrite: true });
-  },
-
-  _ensureThisImport: function() {
-    if (!this.import) {
-      this._findHost = function findHostShim() {
-        var current = this;
-        var app;
-        do {
-          app = current.app || app;
-        } while (current.parent.parent && (current = current.parent));
-        return app;
-      };
-      this.import = function importShim(asset, options) {
-        var app = this._findHost();
-        app.import(asset, options);
-      };
-    }
   }
 };

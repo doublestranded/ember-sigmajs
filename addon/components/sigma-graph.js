@@ -50,20 +50,19 @@ export default Ember.Component.extend(ParentMixin, {
     });
   },
 
-  didInsertElement: function() {
+  didInsertParent: function() {
     let context = this.get('element');
     let settings = this.get('settings') || {};
     this._sigma = new sigma({ renderer: { container: context, type: 'canvas' }, settings: settings });
     this._bindEvents();
     this._super(...arguments);
     this.sigma().refresh();
-    this.set('refreshed', true);
   },
 
-  willDestroyElement: function() {
+  willDestroyParent: function() {
     this._super(...arguments);
     this._unbindEvents();
-    this.graphModel().clear();
+    this.sigma().kill();
     delete this.sigma();
   },
 
