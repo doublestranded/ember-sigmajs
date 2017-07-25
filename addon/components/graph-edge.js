@@ -1,7 +1,12 @@
 import SigmaChildBase from './sigma-child-base';
 
 export default SigmaChildBase.extend({
-  attributeBindings: ['source', 'target'],
+
+  attrNames: ['source', 'target'],
+
+  source: '',
+
+  target: '',
 
   didInsertParent: function() {
     this._super(...arguments);
