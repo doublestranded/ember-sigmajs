@@ -1,8 +1,21 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import SigmaGraph from 'ember-sigmajs/components/sigma-graph';
+
+let graph;
 
 moduleForComponent('sigma-graph', 'Integration | Component | sigma graph', {
-  integration: true
+  integration: true,
+  beforeEach() {
+    // Technique borrowed from
+    // https://github.com/miguelcobain/ember-leaflet/blob/master/tests/integration/components/popup-test.js
+    this.register('component:sigma-graph', SigmaGraph.extend({
+      init() {
+        this._super(...arguments);
+        graph = this;
+      }
+    }));
+  }
 });
 
 test('it renders', function(assert) {
@@ -32,14 +45,15 @@ test('click event', function(assert) {
   this.$('div').click();
 });
 
-// TODO
-// test('click node event', function(assert) {
-//   this.set('onClickNode', (arg) => {
-//     assert.equal(arg.type, 'clickNode');
-//   });
-//   this.render(hbs`{{#sigma-graph clickNode=(action onClickNode) }}
-//                     {{#graph-node id="n0" label="hello" x=0 y=0 size=1 color="#f00"}}
-//                     {{/graph-node}}
-//                   {{/sigma-graph}}`);
-//   this.$('#n0').trigger('click');
-// });
+test('click node event', function(assert) {
+  this.set('onClickNode', (arg) => {
+    assert.equal(arg.data.node.id, 'n0');
+    assert.equal(arg.type, 'clickNode');
+  });
+  this.render(hbs`{{#sigma-graph clickNode=(action onClickNode) }}
+                    {{#graph-node id="n0" label="hello" x=1 y=0 size=10 color="#f00"}}
+                    {{/graph-node}}
+                  {{/sigma-graph}}`);
+
+  graph._sigma.dispatchEvent('clickNode', { node: graph._sigma.graph.nodes()[0] });
+});

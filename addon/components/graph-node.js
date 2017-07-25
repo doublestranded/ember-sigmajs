@@ -1,7 +1,17 @@
 import SigmaChildBase from './sigma-child-base';
 
 export default SigmaChildBase.extend({
-  attributeBindings: ['label', 'x', 'y', 'size', 'color'],
+  attrNames: ['label', 'x', 'y', 'size', 'color'],
+
+  label: '',
+
+  x: 0,
+
+  y: 0,
+
+  size: 1,
+
+  color: '#000',
 
   didInsertParent: function() {
     this._super(...arguments);
