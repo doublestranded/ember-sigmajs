@@ -13,6 +13,9 @@ export default Ember.Component.extend({
   onOverEdge: function(/*edge*/) {
     // console.log(edge);
   },
+  onClickEdge: function(/*edge*/) {
+    // console.log(edge);
+  },
   onClickNodes: function(/*nodes*/) {
     // console.log(nodes);
   },

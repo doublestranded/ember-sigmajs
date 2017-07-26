@@ -4,7 +4,7 @@ import { ParentMixin } from 'ember-composability-tools';
 
 export default Ember.Component.extend(ParentMixin, {
 
-  attributeBindings: ['settings'],
+  attributeBindings: ['settings', 'rendererType', 'rendererSettings'],
 
   classNames: ['sigma-graph'],
 
@@ -54,7 +54,9 @@ export default Ember.Component.extend(ParentMixin, {
   didInsertParent: function() {
     let context = this.get('element');
     let settings = this.get('settings') || {};
-    this._sigma = new sigma({ renderer: { container: context, type: 'canvas' }, settings: settings });
+    let rendererType = this.get('rendererType') || 'canvas';
+    let rendererSettings = this.get('rendererSettings') || {};
+    this._sigma = new sigma({ renderer: { container: context, type: rendererType, settings: rendererSettings }, settings: settings });
     this._bindEvents();
     this._super(...arguments);
     this.sigma().refresh();
