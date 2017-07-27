@@ -10,18 +10,12 @@ export default Ember.Component.extend(ParentMixin, {
 
   settings: {},
 
-  _batched: false,
-
   sigma: function() {
     return this._sigma;
   },
 
   graphModel: function() {
     return this.sigma().graph;
-  },
-
-  isBatched: function() {
-    return this._batched;
   },
 
   events: ['clickNode',
@@ -72,7 +66,6 @@ export default Ember.Component.extend(ParentMixin, {
       catch(e) {
         Ember.Logger.error(e);
       }
-      this._batched = true;
     }
     else {
       try {
