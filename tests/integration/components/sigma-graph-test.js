@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import SigmaGraph from 'ember-sigmajs/components/sigma-graph';
+/*global sigma */
 
 let sigmaGraph;
 
@@ -56,6 +57,15 @@ test('click node event', function(assert) {
                   {{/sigma-graph}}`);
 
   sigmaGraph._sigma.dispatchEvent('clickNode', { node: sigmaGraph._sigma.graph.nodes()[0] });
+});
+
+test('takes existing sigma instance', function(assert) {
+  let s = new sigma();
+  this.set('model', { sigmaInst: s });
+  this.render(hbs`{{#sigma-graph sigmaInst=model.sigmaInst }}
+                  {{/sigma-graph}}`);
+
+  assert.equal(sigmaGraph._sigma, s);
 });
 
 test('batch data', function(assert) {
