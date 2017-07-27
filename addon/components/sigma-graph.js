@@ -4,11 +4,15 @@ import { ParentMixin } from 'ember-composability-tools';
 
 export default Ember.Component.extend(ParentMixin, {
 
-  attributeBindings: ['settings', 'batchData'],
+  attributeBindings: ['sigmaInst', 'settings', 'batchData', 'rendererType', 'rendererSettings', 'camera'],
 
   classNames: ['sigma-graph'],
 
   settings: {},
+
+  rendererType: 'canvas',
+
+  rendererSettings: {},
 
   sigma: function() {
     return this._sigma;
@@ -53,30 +57,35 @@ export default Ember.Component.extend(ParentMixin, {
     });
   },
 
+  _addSigmaInst: function(sigmaInst, renderer) {
+    this._sigma = sigmaInst;
+    this._sigma.addRenderer(renderer);
+  },
+
   didInsertParent: function() {
-    const { element, settings, batchData } = this;
+    const { sigmaInst, element, settings, batchData, rendererType, rendererSettings, camera } = this;
+    let options = {
+      renderer: {
+        container: element,
+        type: rendererType,
+        settings: rendererSettings,
+        camera: camera
+      },
+      settings: settings
+    }
     if (batchData) {
-      try {
-        this._sigma = new sigma({
-          graph: batchData,
-          renderer: { container: element, type: 'canvas' },
-          settings: settings
-        });
+      options['graph'] = batchData;
+    }
+    try {
+      if (sigmaInst) {
+          this._addSigmaInst(sigmaInst, options.renderer);
       }
-      catch(e) {
-        Ember.Logger.error(e);
+      else {
+          this._sigma = new sigma(options);
       }
     }
-    else {
-      try {
-        this._sigma = new sigma({
-          renderer: { container: element, type: 'canvas' },
-          settings: settings
-        });
-      }
-      catch(e) {
-        Ember.Logger.error(e.message);
-      }
+    catch(e) {
+      Ember.Logger.error(e);
     }
     this._bindEvents();
     this._super(...arguments);

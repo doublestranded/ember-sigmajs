@@ -2,17 +2,8 @@ import Ember from 'ember';
 import SigmaChildBase from './sigma-child-base';
 
 export default SigmaChildBase.extend({
-  attrNames: ['label', 'x', 'y', 'size', 'color'],
 
-  label: '',
-
-  x: 0,
-
-  y: 0,
-
-  size: 1,
-
-  color: '#000',
+  attrNames: ['label', 'x', 'y', 'size', 'color', 'type'],
 
   didInsertParent: function() {
     this._super(...arguments);

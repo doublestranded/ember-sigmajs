@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { ChildMixin } from 'ember-composability-tools';
 
 export default Ember.Component.extend(ChildMixin, {
+  
   tagName: '',
 
   sigma: function() {

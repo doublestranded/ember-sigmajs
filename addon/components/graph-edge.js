@@ -3,11 +3,7 @@ import SigmaChildBase from './sigma-child-base';
 
 export default SigmaChildBase.extend({
 
-  attrNames: ['source', 'target'],
-
-  source: '',
-
-  target: '',
+  attrNames: ['source', 'target', 'label', 'size', 'color', 'type'],
 
   didInsertParent: function() {
     this._super(...arguments);
