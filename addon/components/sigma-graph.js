@@ -62,18 +62,28 @@ export default Ember.Component.extend(ParentMixin, {
   didInsertParent: function() {
     const { element, settings, batchData } = this;
     if (batchData) {
-      this._sigma = new sigma({
-        graph: batchData,
-        renderer: { container: element, type: 'canvas' },
-        settings: settings
-      });
+      try {
+        this._sigma = new sigma({
+          graph: batchData,
+          renderer: { container: element, type: 'canvas' },
+          settings: settings
+        });
+      }
+      catch(e) {
+        Ember.Logger.error(e);
+      }
       this._batched = true;
     }
     else {
-      this._sigma = new sigma({
-        renderer: { container: element, type: 'canvas' },
-        settings: settings
-      });
+      try {
+        this._sigma = new sigma({
+          renderer: { container: element, type: 'canvas' },
+          settings: settings
+        });
+      }
+      catch(e) {
+        Ember.Logger.error(e.message);
+      }
     }
     this._bindEvents();
     this._super(...arguments);

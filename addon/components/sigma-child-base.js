@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import { ChildMixin } from 'ember-composability-tools';
-const { assert } = Ember;
 
 export default Ember.Component.extend(ChildMixin, {
   tagName: '',
@@ -19,12 +18,5 @@ export default Ember.Component.extend(ChildMixin, {
       if (this.get(attr) !== undefined) attrs[attr] = this.get(attr);
     });
     return attrs;
-  },
-
-  didInsertParent: function() {
-    if (this.get('parentComponent').isBatched()) {
-      assert('Graph is instantiated with batch data.');
-    }
-    this._super(...arguments);
   }
 });
