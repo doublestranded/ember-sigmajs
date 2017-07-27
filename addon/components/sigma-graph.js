@@ -4,9 +4,15 @@ import { ParentMixin } from 'ember-composability-tools';
 
 export default Ember.Component.extend(ParentMixin, {
 
-  attributeBindings: ['settings', 'rendererType', 'rendererSettings'],
+  attributeBindings: ['settings', 'batchData', 'rendererType', 'rendererSettings'],
 
   classNames: ['sigma-graph'],
+
+  settings: {},
+
+  rendererType: 'canvas',
+
+  rendererSettings: {},
 
   sigma: function() {
     return this._sigma;
@@ -52,11 +58,30 @@ export default Ember.Component.extend(ParentMixin, {
   },
 
   didInsertParent: function() {
-    let context = this.get('element');
-    let settings = this.get('settings') || {};
-    let rendererType = this.get('rendererType') || 'canvas';
-    let rendererSettings = this.get('rendererSettings') || {};
-    this._sigma = new sigma({ renderer: { container: context, type: rendererType, settings: rendererSettings }, settings: settings });
+    const { element, settings, batchData, rendererType, rendererSettings } = this;
+    if (batchData) {
+      try {
+        this._sigma = new sigma({
+          graph: batchData,
+          renderer: { container: element, type: rendererType, settings: rendererSettings },
+          settings: settings
+        });
+      }
+      catch(e) {
+        Ember.Logger.error(e);
+      }
+    }
+    else {
+      try {
+        this._sigma = new sigma({
+          renderer: { container: element, type: rendererType, settings: rendererSettings },
+          settings: settings
+        });
+      }
+      catch(e) {
+        Ember.Logger.error(e.message);
+      }
+    }
     this._bindEvents();
     this._super(...arguments);
     this.sigma().refresh();

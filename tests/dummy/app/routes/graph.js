@@ -6,7 +6,7 @@ export default Ember.Route.extend({
       settings: { minEdgeSize: 0, maxEdgeSize: 0 },
       rendererSettings: { edgeColor: "target" },
       nodes: [{ id: 'n0', label: 'Hello', x: 0, y: 0, size: 1, color: '#f00'},{ id: 'n1', label: 'World !',x: 1, y: 1, size: 1, color: '#00f'}],
-      edges: [{id: 'e0', source: 'n0', target: 'n1', label: 'the edge', size: 3, type: 'curve'}]
+      edges: [{id: 'e0', source: 'n0', target: 'n1', label: 'the edge', size: 3, type: 'arrow'}]
     });
   }
 });

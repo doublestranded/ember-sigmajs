@@ -2,7 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import SigmaGraph from 'ember-sigmajs/components/sigma-graph';
 
-let graph;
+let sigmaGraph;
 
 moduleForComponent('sigma-graph', 'Integration | Component | sigma graph', {
   integration: true,
@@ -12,7 +12,7 @@ moduleForComponent('sigma-graph', 'Integration | Component | sigma graph', {
     this.register('component:sigma-graph', SigmaGraph.extend({
       init() {
         this._super(...arguments);
-        graph = this;
+        sigmaGraph = this;
       }
     }));
   }
@@ -55,5 +55,29 @@ test('click node event', function(assert) {
                     {{/graph-node}}
                   {{/sigma-graph}}`);
 
-  graph._sigma.dispatchEvent('clickNode', { node: graph._sigma.graph.nodes()[0] });
+  sigmaGraph._sigma.dispatchEvent('clickNode', { node: sigmaGraph._sigma.graph.nodes()[0] });
+});
+
+test('batch data', function(assert) {
+  this.set('model', { batchData: {
+      nodes: [{ id: 'n0' }, { id: 'n1' }],
+      edges: [{ id: 'e0', source: 'n0', target: 'n1'}]
+    }
+  });
+  this.render(hbs`{{#sigma-graph batchData=model.batchData }}
+                  {{/sigma-graph}}`);
+  assert.equal(sigmaGraph._sigma.graph.nodes().length, 2);
+});
+
+test('new child components allowed given batch data', function(assert) {
+  this.set('model', { batchData: {
+      nodes: [{ id: 'n0' }, { id: 'n1' }],
+      edges: [{ id: 'e0', source: 'n0', target: 'n1'}]
+    }
+  });
+  this.render(hbs`{{#sigma-graph batchData=model.batchData }}
+                    {{#graph-node id="n2" label="goodbye" x=0 y=1 size=10 color="#f00"}}
+                    {{/graph-node}}
+                  {{/sigma-graph}}`);
+  assert.equal(sigmaGraph._sigma.graph.nodes().length, 3);
 });

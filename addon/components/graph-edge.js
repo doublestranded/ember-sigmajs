@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import SigmaChildBase from './sigma-child-base';
 
 export default SigmaChildBase.extend({
@@ -9,7 +10,12 @@ export default SigmaChildBase.extend({
     if (this.get('parentComponent')) {
       let attrs = this.getAttrs();
       if (this.graphModel().nodes(attrs.source) && this.graphModel().nodes(attrs.target)) {
-        this.graphModel().addEdge(attrs);
+        try {
+            this.graphModel().addEdge(attrs);
+        }
+        catch(e) {
+            Ember.Logger.error(e);
+        }
         this.sigma().refresh();
       }
     }
