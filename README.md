@@ -15,7 +15,7 @@ In the template where you want your graph, you can pass in a sigma instance dire
 {{/sigma-graph}}
 ```
 
-or with GraphNode and GraphEdge nested components (with some attribute example values):
+or with GraphNode and GraphEdge child components (with some attribute example values):
 
 ```
 {{#sigma-graph settings=mySettings rendererType=myRendererType rendererSettings=myRendererSettings}}
@@ -33,7 +33,7 @@ or with GraphNode and GraphEdge nested components (with some attribute example v
 {{/sigma-graph}}
 ```
 
-or with graphData specifying nodes and edges (see the table below for more details):
+or with graphData specifying lists of nodes and edges (see the table below for more details):
 
 ```
 {{#sigma-graph graphData=mygraphData settings=mySettings rendererType=myRendererType rendererSettings=myRendererSettings}}
@@ -46,10 +46,10 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 
 | sigma-graph attribute | sigma.js equivalent | description |
 | --- | --- | --- |
-| settings | An object including any of: [https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings](https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings) | |
-| graphData | passed to the sigma instance's 'graph' option on instantiation. | Format example: `{ nodes: [{id: 'n1', label: 'Hello', etc.},{id: 'n2', label: 'World', etc.}], edges: [{id: 'e0', label: 'the edge'}] }` See the two tables for graph-node and graph-edge below. |
-| rendererType | 'canvas' or 'webgl' if WebGL is enabled. Default is 'canvas' | |
-| rendererSettings | An object including any of: [https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings](https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings) | |
+| settings | settings | An object including any of: [https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings](https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings) |
+| graphData | None. Passed to the sigma instance's 'graph' option on instantiation. | Format example: `{ nodes: [{id: 'n1', label: 'Hello', etc.},{id: 'n2', label: 'World', etc.}], edges: [{id: 'e0', label: 'the edge'}] }` See the two tables for graph-node and graph-edge below. |
+| rendererType | None. Passed to 'renderer' argument of sigma instance as 'type'. | 'canvas' or 'webgl' if WebGL is enabled. Default is 'canvas' |
+| rendererSettings | None. Passed to 'renderer' argument of sigma instance as 'settings'. | An object including any of: [https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings](https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings) |
 | camera | camera | camera string id. | |
 
 | graph-node attribute | sigma.js equivalent | description |
@@ -83,7 +83,7 @@ All actions are set to the SigmaGraph component. For example:
 ```
 export default Ember.Component.extend({
 
-  // event is dispatched with node as argument
+  // event is dispatched with node object as argument
   onClickNode: function(node) {
 
   }
@@ -131,7 +131,7 @@ The addon utilizes the parent-child helper pattern developed in [ember-composabi
 
 GraphNodes and GraphEdges are tagless (empty `tagName`) child components of the SigmaGraph component. They are not strictly necessary, but they provide convenience.
 
-This addon is still experimental. Contributions are welcome. Since this is a wrapper, there may be issues with either this addon or the [sigma.js library](https://github.com/jacomyal/sigma.js/issues).
+This addon is still experimental. Contributions are welcome and encouraged. Since this is a wrapper, there may be issues with either this addon or the [sigma.js library](https://github.com/jacomyal/sigma.js/issues), so it's worth taking a look there to see if the issue has already been noticed.
 
 ## Running Tests
 
