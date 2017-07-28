@@ -4,7 +4,7 @@ import { ParentMixin } from 'ember-composability-tools';
 
 export default Ember.Component.extend(ParentMixin, {
 
-  attributeBindings: ['sigmaInst', 'settings', 'batchData', 'rendererType', 'rendererSettings', 'camera'],
+  attributeBindings: ['sigmaInst', 'settings', 'graphData', 'rendererType', 'rendererSettings', 'camera'],
 
   classNames: ['sigma-graph'],
 
@@ -63,7 +63,7 @@ export default Ember.Component.extend(ParentMixin, {
   },
 
   didInsertParent: function() {
-    const { sigmaInst, element, settings, batchData, rendererType, rendererSettings, camera } = this;
+    const { sigmaInst, element, settings, graphData, rendererType, rendererSettings, camera } = this;
     let options = {
       renderer: {
         container: element,
@@ -73,8 +73,8 @@ export default Ember.Component.extend(ParentMixin, {
       },
       settings: settings
     }
-    if (batchData) {
-      options['graph'] = batchData;
+    if (graphData) {
+      options['graph'] = graphData;
     }
     try {
       if (sigmaInst) {

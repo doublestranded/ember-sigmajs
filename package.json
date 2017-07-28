@@ -24,7 +24,6 @@
     "ember-cli-funnel": "^0.1.4",
     "ember-cli-htmlbars": "^1.1.1",
     "ember-composability-tools": "0.0.8",
-    "ember-invoke-action": "^1.4.0",
     "grunt": "^1.0.1",
     "phantomjs": "^2.1.7",
     "requirejs": "^2.3.3"

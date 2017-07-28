@@ -1,19 +1,137 @@
 # ember-sigmajs
 
-Ember addon for sigma.js
-
-This README outlines the details of collaborating on this Ember addon.
+Ember addon for [sigma.js](https://github.com/jacomyal/sigma.js)
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd ember-sigmajs`
-* `npm install`
+`ember install ember-sigmajs`
 
-## Running
+## Usage
+
+In the template where you want your graph, you can pass in a sigma instance directly as such:
+
+```
+{{#sigma-graph sigmaInst=yourSigmaInst }}
+{{/sigma-graph}}
+```
+
+or with GraphNode and GraphEdge nested components (with some attribute example values):
+
+```
+{{#sigma-graph settings=mySettings rendererType=myRendererType rendererSettings=myRendererSettings}}
+
+  {{#each myNodes as |myNode|}}
+    {{graph-node id=myNode.id label=myNode.labelString x=0 y=1 size=1 color='#f00'}}
+    {{/graph-node}}
+  {{/each}}
+
+  {{#each myEdges as |myEdge|}}
+    {{#graph-edge id=myEdge.id source=existingNodeId target=existingNodeId size=2 type='arrow'}}
+    {{/graph-edge}}
+  {{/each}}
+
+{{/sigma-graph}}
+```
+
+or with graphData specifying nodes and edges (see the table below for more details):
+
+```
+{{#sigma-graph graphData=mygraphData settings=mySettings rendererType=myRendererType rendererSettings=myRendererSettings}}
+{{/sigma-graph}}
+```
+
+NOTE: you can still add graph-node and graph-edge child components with graphData specified, as long as ids are not duplicated.
+
+### Attributes
+
+| sigma-graph attribute | sigma.js equivalent | description |
+| --- | --- | --- |
+| settings | An object including any of: [https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings](https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings) | |
+| graphData | passed to the sigma instance's 'graph' option on instantiation. | Format example: `{ nodes: [{id: 'n1', label: 'Hello', etc.},{id: 'n2', label: 'World', etc.}], edges: [{id: 'e0', label: 'the edge'}] }` See the two tables for graph-node and graph-edge below. |
+| rendererType | 'canvas' or 'webgl' if WebGL is enabled. Default is 'canvas' | |
+| rendererSettings | An object including any of: [https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings](https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings) | |
+| camera | camera | camera string id. | |
+
+| graph-node attribute | sigma.js equivalent | description |
+| --- | --- |
+| id | id | unique id for node object |
+| label | label | String label |
+| x | x | Number |
+| y | y | Number |
+| size | size | Number |
+| color | color | color hex |
+| type | type | | |
+
+| graph-edge attribute | sigma.js equivalent | description |
+| --- | --- | --- |
+| id | id | unique id for edge object |
+| label | label | String label |
+| source | source | source node id |
+| target | target | target node id |
+| size | size | Number |
+| color | color | color hex |
+| type | type | One of: 'def', 'arrow', 'curve', 'curvedArrow' |
+
+### Actions
+
+All actions are set to the SigmaGraph component. For example:
+
+```
+{{#sigma-graph clickNode=onClickNode }}{{/sigma-graph}}
+```
+
+```
+export default Ember.Component.extend({
+
+  // event is dispatched with node as argument
+  onClickNode: function(node) {
+
+  }
+
+});
+```
+
+Supported actions are:
+
+* `clickNode`
+* `rightClickNode`
+* `overNode`
+* `doubleClickNode`
+* `outNode`
+* `downNode`
+* `upNode`
+* `clickEdge`
+* `rightClickEdge`
+* `overEdge`
+* `doubleClickEdge`
+* `outEdge`
+* `downEdge`
+* `upEdge`
+* `click`
+* `rightClick`
+* `clickStage`
+* `doubleClickStage`
+* `rightClickStage`
+* `clickNodes`
+* `doubleClickNodes`
+* `rightClickNodes`
+* `overNodes`
+* `outNodes`
+* `downNodes`
+* `upNodes`
+
+See the [Sigma Events API](https://github.com/jacomyal/sigma.js/wiki/Events-API) for more information.
 
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
+
+## Background
+
+The addon utilizes the parent-child helper pattern developed in [ember-composability-tools](https://github.com/miguelcobain/ember-composability-tools).
+
+GraphNodes and GraphEdges are tagless (empty `tagName`) child components of the SigmaGraph component. They are not strictly necessary, but they provide convenience.
+
+This addon is still experimental. Contributions are welcome. Since this is a wrapper, there may be issues with either this addon or the [sigma.js library](https://github.com/jacomyal/sigma.js/issues).
 
 ## Running Tests
 
