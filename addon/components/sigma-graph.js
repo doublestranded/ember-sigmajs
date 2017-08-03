@@ -87,6 +87,10 @@ export default Ember.Component.extend(ParentMixin, {
     catch(e) {
       Ember.Logger.error(e);
     }
+
+    //plugin
+    CustomShapes.init(this.sigma());
+
     this._bindEvents();
     this._super(...arguments);
     this.sigma().refresh();

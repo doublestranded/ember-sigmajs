@@ -42,6 +42,9 @@ or with graphData specifying lists of nodes and edges (see the table below for m
 
 NOTE: you can still add graph-node and graph-edge child components with graphData specified, as long as ids are not duplicated.
 
+* `ember serve`
+* Visit your app at [http://localhost:4200](http://localhost:4200).
+
 ### Attributes
 
 | sigma-graph attribute | sigma.js equivalent | description |
@@ -60,7 +63,12 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 | y | y | Number |
 | size | size | Number |
 | color | color | color hex |
-| type | type | | |
+| type | type | One of: 'square','circle','cross','equilateral','star','diamond','pacman' |
+| image | image | Object with property names: 'url', 'clip', 'scale', 'w', 'h'. Use one of 'type' when using 'image'. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) |
+| equilateral | equilateral | Object with property names: 'rotate', 'numPoints'. Use when type='equilateral'. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) |
+| star | star | Object with property names: 'innerRatio', 'numPoints'. Use when type='star'. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) |
+| cross | cross | Object with property name: 'lineWeight'. Use when type='cross'. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) | |
+
 
 | graph-edge attribute | sigma.js equivalent | description |
 | --- | --- | --- |
@@ -70,7 +78,7 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 | target | target | target node id |
 | size | size | Number |
 | color | color | color hex |
-| type | type | One of: 'def', 'arrow', 'curve', 'curvedArrow' |
+| type | type | One of: 'def', 'arrow', 'curve', 'curvedArrow', 'dashed', 'dotted', 'parallel', 'tapered' |
 
 ### Actions
 
@@ -120,10 +128,16 @@ Supported actions are:
 * `downNodes`
 * `upNodes`
 
+NOTE: in order to enable edge hovering events, set `enableEdgeHovering` to true in sigma-graph `settings`.
+
 See the [Sigma Events API](https://github.com/jacomyal/sigma.js/wiki/Events-API) for more information.
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+### Plugins
+
+The sigma.js library provides [plugins](https://github.com/jacomyal/sigma.js/tree/master/plugins) in addition to the core functionality. Here are the plugins currently supported by ember-sigmajs:
+
+* sigma.renderers.customShapes
+* sigma.renderers.customEdgeShapes
 
 ## Background
 
@@ -131,7 +145,7 @@ The addon utilizes the parent-child helper pattern developed in [ember-composabi
 
 GraphNodes and GraphEdges are tagless (empty `tagName`) child components of the SigmaGraph component. They are not strictly necessary, but they provide convenience.
 
-This addon is still experimental. Contributions are welcome and encouraged. Since this is a wrapper, there may be issues with either this addon or the [sigma.js library](https://github.com/jacomyal/sigma.js/issues), so it's worth taking a look there to see if the issue has already been noticed.
+This addon is still experimental. Contributions are welcome and encouraged. There may be issues with either this addon or the [sigma.js library](https://github.com/jacomyal/sigma.js/issues), so it's worth taking a look there to see if the issue has already been noticed.
 
 ## Running Tests
 

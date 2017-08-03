@@ -12,11 +12,11 @@ export default SigmaChildBase.extend({
       if (this.graphModel().nodes(attrs.source) && this.graphModel().nodes(attrs.target)) {
         try {
             this.graphModel().addEdge(attrs);
+            this.sigma().refresh();
         }
         catch(e) {
             Ember.Logger.error(e);
         }
-        this.sigma().refresh();
       }
     }
   },
