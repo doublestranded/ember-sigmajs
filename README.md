@@ -49,7 +49,7 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 
 | sigma-graph attribute | sigma.js equivalent | description |
 | --- | --- | --- |
-| settings | settings | An object including any of [these](https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings) |
+| settings | settings | An object including any of [these](https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings). In addition, the included edgeLabel plugin specifies [label settings](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.edgeLabels). |
 | graphData | None. Passed to the sigma instance's `graph` option on instantiation. | Format example: `{ nodes: [{id: 'n1', label: 'Hello', etc.},{id: 'n2', label: 'World', etc.}], edges: [{id: 'e0', label: 'the edge'}] }` See the two tables for graph-node and graph-edge below. |
 | rendererType | None. Passed to `renderer` argument of sigma instance as `type`. | `canvas` or `webgl` if WebGL is enabled. Default is `canvas` |
 | rendererSettings | None. Passed to `renderer` argument of sigma instance as `settings`. | An object including any of  [these](https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings) |
@@ -149,6 +149,7 @@ The sigma.js library provides [plugins](https://github.com/jacomyal/sigma.js/tre
 * sigma.renderers.customEdgeShapes
 * sigma.layout.forceAtlas2
 * sigma.plugins.dragNodes
+* sigma.renderers.edgeLabels
 
 More will be supported in future releases.
 

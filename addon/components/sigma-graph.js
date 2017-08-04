@@ -117,7 +117,6 @@ export default Ember.Component.extend(ParentMixin, {
       this.sigma().startForceAtlas2(forceAtlas2);
       this._forceAtlas2 = true;
     }
-
     if (enableDragNodes) {
       this._enableDragNodes = true;
       this._dragListener = new sigma.plugins.dragNodes(this.sigma(), this.sigma().renderers[0]);
