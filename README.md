@@ -54,7 +54,8 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 | rendererType | None. Passed to 'renderer' argument of sigma instance as 'type'. | 'canvas' or 'webgl' if WebGL is enabled. Default is 'canvas' |
 | rendererSettings | None. Passed to 'renderer' argument of sigma instance as 'settings'. | An object including any of  [these](https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings) |
 | camera | camera | camera string id. |
-| forceAtlas2Settings | None. Passed to 'startForceAtlas2' on sigma instance. | Plugin settings [here](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.layout.forceAtlas2) | |
+| forceAtlas2Settings | None. Passed to 'startForceAtlas2' on sigma instance. | Plugin settings [here](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.layout.forceAtlas2) |
+| enableDragNodes | None. Enables dragNodes plugin. | | |
 
 | graph-node attribute | sigma.js equivalent | description |
 | --- | --- |
@@ -131,6 +132,13 @@ Supported actions are:
 
 NOTE: in order to enable edge hovering events, set `enableEdgeHovering` to true in sigma-graph `settings`.
 
+dragNodes plugin actions, also set on SigmaGraph:
+
+* `startdrag`
+* `drag`
+* `drop`
+* `dragend`
+
 See the [Sigma Events API](https://github.com/jacomyal/sigma.js/wiki/Events-API) for more information.
 
 ### Plugins
@@ -140,6 +148,7 @@ The sigma.js library provides [plugins](https://github.com/jacomyal/sigma.js/tre
 * sigma.renderers.customShapes
 * sigma.renderers.customEdgeShapes
 * sigma.layout.forceAtlas2
+* sigma.plugins.dragNodes
 
 More will be supported in future releases.
 
