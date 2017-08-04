@@ -58,7 +58,7 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 | enableDragNodes | None. Enables dragNodes plugin. | | |
 
 | graph-node attribute | sigma.js equivalent | description |
-| --- | --- |
+| --- | --- | --- |
 | id | id | unique id for node object |
 | label | label | String label |
 | x | x | Number |
