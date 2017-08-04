@@ -5,8 +5,8 @@ export default Ember.Route.extend({
     // From https://github.com/jacomyal/sigma.js/blob/master/examples/force.html
     var i,
         o,
-        N = 1000,
-        E = 5000,
+        N = 100,
+        E = 500,
         C = 5,
         d = 0.5,
         cs = [],
@@ -53,7 +53,9 @@ export default Ember.Route.extend({
     }
     return Ember.RSVP.hash({
       graphData: g,
-      forceAtlas2Settings: {}
+      forceAtlas2Settings: {},
+      nodes: [{ id: 'n101', label: 'Hello', x: 0, y: 0, size: 1, color: '#f00', type: 'square'}],
+      edges: [{id: 'e501', source: 'n101', target: 'n1', label: 'the edge', size: 3, type: 'arrow'}]
     });
   }
 });
