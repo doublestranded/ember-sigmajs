@@ -30,6 +30,7 @@ module.exports = {
     app.import('vendor/sigma/sigma.min.js');
     app.import('vendor/sigma/plugins/sigma.renderers.customEdgeShapes.min.js');
     app.import('vendor/sigma/plugins/sigma.renderers.customShapes.min.js');
+    app.import('vendor/sigma/plugins/sigma.layout.forceAtlas2.min.js');
   },
 
   treeForVendor: function(vendorTree){

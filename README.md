@@ -52,8 +52,9 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 | settings | settings | An object including any of: [https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings](https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings) |
 | graphData | None. Passed to the sigma instance's 'graph' option on instantiation. | Format example: `{ nodes: [{id: 'n1', label: 'Hello', etc.},{id: 'n2', label: 'World', etc.}], edges: [{id: 'e0', label: 'the edge'}] }` See the two tables for graph-node and graph-edge below. |
 | rendererType | None. Passed to 'renderer' argument of sigma instance as 'type'. | 'canvas' or 'webgl' if WebGL is enabled. Default is 'canvas' |
-| rendererSettings | None. Passed to 'renderer' argument of sigma instance as 'settings'. | An object including any of: [https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings](https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings) |
-| camera | camera | camera string id. | |
+| rendererSettings | None. Passed to 'renderer' argument of sigma instance as 'settings'. | An object including any of  [these](https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings) |
+| camera | camera | camera string id. |
+| forceAtlas2Settings | None. Passed to 'startForceAtlas2' on sigma instance. | Plugin settings [here](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.layout.forceAtlas2) | |
 
 | graph-node attribute | sigma.js equivalent | description |
 | --- | --- |
@@ -138,6 +139,9 @@ The sigma.js library provides [plugins](https://github.com/jacomyal/sigma.js/tre
 
 * sigma.renderers.customShapes
 * sigma.renderers.customEdgeShapes
+* sigma.layout.forceAtlas2
+
+More will be supported in future releases.
 
 ## Background
 

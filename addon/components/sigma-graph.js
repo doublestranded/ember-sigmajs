@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { ParentMixin } from 'ember-composability-tools';
 /*global sigma */
+/*global CustomShapes */
 
 export default Ember.Component.extend(ParentMixin, {
 
@@ -13,6 +14,8 @@ export default Ember.Component.extend(ParentMixin, {
   rendererType: 'canvas',
 
   rendererSettings: {},
+
+  _forceAtlas2: false,
 
   sigma: function() {
     return this._sigma;
@@ -63,7 +66,7 @@ export default Ember.Component.extend(ParentMixin, {
   },
 
   didInsertParent: function() {
-    const { sigmaInst, element, settings, graphData, rendererType, rendererSettings, camera } = this;
+    const { sigmaInst, element, settings, graphData, rendererType, rendererSettings, camera, forceAtlas2 } = this;
     let options = {
       renderer: {
         container: element,
@@ -90,6 +93,10 @@ export default Ember.Component.extend(ParentMixin, {
 
     //plugin
     CustomShapes.init(this.sigma());
+    if (forceAtlas2 !== undefined) {
+      this.sigma().startForceAtlas2(forceAtlas2);
+      this._forceAtlas2 = true;
+    }
 
     this._bindEvents();
     this._super(...arguments);
@@ -99,6 +106,9 @@ export default Ember.Component.extend(ParentMixin, {
   willDestroyParent: function() {
     this._super(...arguments);
     this._unbindEvents();
+    if (this._forceAtlas2) {
+      this.sigma().killForceAtlas2();
+    }
     this.sigma().kill();
     delete this.sigma();
   },

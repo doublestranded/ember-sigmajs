@@ -1,0 +1,5 @@
+<button {{action "toggleGraph"}}>Hide Graph</button>
+{{#if showGraph}}
+  {{#sigma-graph forceAtlas2=model.forceAtlas2Settings graphData=model.graphData}}
+  {{/sigma-graph}}
+{{/if}}
