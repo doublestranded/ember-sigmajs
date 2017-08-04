@@ -161,6 +161,11 @@ GraphNodes and GraphEdges are tagless (empty `tagName`) child components of the 
 
 This addon is still experimental. Contributions are welcome and encouraged. There may be issues with either this addon or the [sigma.js library](https://github.com/jacomyal/sigma.js/issues), so it's worth taking a look there to see if the issue has already been noticed.
 
+### Wishlist
+
+* Child components can have multiple parents; e.g., an edge has two node parents
+* Finish integrating plugins
+
 ## Running Tests
 
 * `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
