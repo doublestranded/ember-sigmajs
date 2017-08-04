@@ -49,12 +49,12 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 
 | sigma-graph attribute | sigma.js equivalent | description |
 | --- | --- | --- |
-| settings | settings | An object including any of: [https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings](https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings) |
-| graphData | None. Passed to the sigma instance's 'graph' option on instantiation. | Format example: `{ nodes: [{id: 'n1', label: 'Hello', etc.},{id: 'n2', label: 'World', etc.}], edges: [{id: 'e0', label: 'the edge'}] }` See the two tables for graph-node and graph-edge below. |
-| rendererType | None. Passed to 'renderer' argument of sigma instance as 'type'. | 'canvas' or 'webgl' if WebGL is enabled. Default is 'canvas' |
-| rendererSettings | None. Passed to 'renderer' argument of sigma instance as 'settings'. | An object including any of  [these](https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings) |
+| settings | settings | An object including any of [these](https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings) |
+| graphData | None. Passed to the sigma instance's `graph` option on instantiation. | Format example: `{ nodes: [{id: 'n1', label: 'Hello', etc.},{id: 'n2', label: 'World', etc.}], edges: [{id: 'e0', label: 'the edge'}] }` See the two tables for graph-node and graph-edge below. |
+| rendererType | None. Passed to `renderer` argument of sigma instance as `type`. | `canvas` or `webgl` if WebGL is enabled. Default is `canvas` |
+| rendererSettings | None. Passed to `renderer` argument of sigma instance as `settings`. | An object including any of  [these](https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings) |
 | camera | camera | camera string id. |
-| forceAtlas2Settings | None. Passed to 'startForceAtlas2' on sigma instance. | Plugin settings [here](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.layout.forceAtlas2) |
+| forceAtlas2Settings | None. Passed to `startForceAtlas2` on sigma instance. | Plugin settings [here](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.layout.forceAtlas2) |
 | enableDragNodes | None. Enables dragNodes plugin. | | |
 
 | graph-node attribute | sigma.js equivalent | description |
@@ -65,11 +65,11 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 | y | y | Number |
 | size | size | Number |
 | color | color | color hex |
-| type | type | One of: 'square','circle','cross','equilateral','star','diamond','pacman' |
-| image | image | Object with property names: 'url', 'clip', 'scale', 'w', 'h'. Use one of 'type' when using 'image'. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) |
-| equilateral | equilateral | Object with property names: 'rotate', 'numPoints'. Use when type='equilateral'. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) |
-| star | star | Object with property names: 'innerRatio', 'numPoints'. Use when type='star'. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) |
-| cross | cross | Object with property name: 'lineWeight'. Use when type='cross'. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) | |
+| type | type | One of: `square`,`circle`,`cross`,`equilateral`,`star`,`diamond`,`pacman` |
+| image | image | Object with property names: `url`, `clip`, `scale`, `w`, `h`. Use one of `type` when using `image`. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) |
+| equilateral | equilateral | Object with property names: `rotate`, `numPoints`. Use when type=`equilateral`. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) |
+| star | star | Object with property names: `innerRatio`, `numPoints`. Use when type=`star`. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) |
+| cross | cross | Object with property name: `lineWeight`. Use when type=`cross`. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) | |
 
 
 | graph-edge attribute | sigma.js equivalent | description |
@@ -80,7 +80,7 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 | target | target | target node id |
 | size | size | Number |
 | color | color | color hex |
-| type | type | One of: 'def', 'arrow', 'curve', 'curvedArrow', 'dashed', 'dotted', 'parallel', 'tapered' |
+| type | type | One of: `def`, `arrow`, `curve`, `curvedArrow`, `dashed`, `dotted`, `parallel`, `tapered` |
 
 ### Actions
 
