@@ -1,17 +1,17 @@
 {
   "name": "ember-sigmajs",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.1.0",
+  "description": "ember addon for the sigma.js graph library",
   "keywords": [
     "ember-addon"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Alexander Smith <saalexantay@gmail.com>",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "https://github.com/doublestranded/ember-sigmajs",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
