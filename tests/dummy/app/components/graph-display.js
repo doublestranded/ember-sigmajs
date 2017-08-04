@@ -19,6 +19,9 @@ export default Ember.Component.extend({
   onClickNodes: function(/*nodes*/) {
     // console.log(nodes);
   },
+  onDragEnd: function(/*node, graph*/) {
+    // console.log(node);
+  },
   actions: {
     toggleEdge: function() {
       this.sendAction('toggleEdge');
