@@ -1,9 +1,11 @@
 {
   "name": "ember-sigmajs",
   "version": "0.1.0",
-  "description": "ember addon for the sigma.js graph library",
+  "description": "ember addon for the sigma.js graph drawing library",
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "sigma.js",
+    "ember-sigmajs"
   ],
   "license": "MIT",
   "author": "Alexander Smith <saalexantay@gmail.com>",
