@@ -1,10 +1,11 @@
 import Ember from 'ember';
 import { ParentMixin } from 'ember-composability-tools';
 /*global sigma */
+/*global CustomShapes */
 
 export default Ember.Component.extend(ParentMixin, {
 
-  attributeBindings: ['sigmaInst', 'settings', 'batchData', 'rendererType', 'rendererSettings', 'camera'],
+  attributeBindings: ['sigmaInst', 'settings', 'graphData', 'rendererType', 'rendererSettings', 'camera'],
 
   classNames: ['sigma-graph'],
 
@@ -13,6 +14,10 @@ export default Ember.Component.extend(ParentMixin, {
   rendererType: 'canvas',
 
   rendererSettings: {},
+
+  _forceAtlas2: false,
+
+  _enableDragNodes: false,
 
   sigma: function() {
     return this._sigma;
@@ -49,12 +54,22 @@ export default Ember.Component.extend(ParentMixin, {
           'downNodes',
           'upNodes'],
 
+  dragEvents: ['startdrag', 'drag', 'drop', 'dragend'],
+
   _bindEvents: function() {
     this.get('events').forEach((eventName) => {
       if (this.get(eventName) !== undefined) {
         this.sigma().bind(eventName, this.get(eventName));
       }
     });
+
+    if (this._enableDragNodes && this._dragListener) {
+      this.get('dragEvents').forEach((eventName) => {
+        this._dragListener.bind(eventName, (e) => {
+          this.sendAction(eventName, e.data.node, this.sigma());
+        });
+      });
+    }
   },
 
   _addSigmaInst: function(sigmaInst, renderer) {
@@ -63,7 +78,15 @@ export default Ember.Component.extend(ParentMixin, {
   },
 
   didInsertParent: function() {
-    const { sigmaInst, element, settings, batchData, rendererType, rendererSettings, camera } = this;
+    const { sigmaInst,
+            element,
+            settings,
+            graphData,
+            rendererType,
+            rendererSettings,
+            camera,
+            forceAtlas2,
+            enableDragNodes } = this;
     let options = {
       renderer: {
         container: element,
@@ -73,8 +96,8 @@ export default Ember.Component.extend(ParentMixin, {
       },
       settings: settings
     }
-    if (batchData) {
-      options['graph'] = batchData;
+    if (graphData) {
+      options['graph'] = graphData;
     }
     try {
       if (sigmaInst) {
@@ -87,6 +110,18 @@ export default Ember.Component.extend(ParentMixin, {
     catch(e) {
       Ember.Logger.error(e);
     }
+
+    //plugin
+    CustomShapes.init(this.sigma());
+    if (forceAtlas2 !== undefined) {
+      this.sigma().startForceAtlas2(forceAtlas2);
+      this._forceAtlas2 = true;
+    }
+    if (enableDragNodes) {
+      this._enableDragNodes = true;
+      this._dragListener = new sigma.plugins.dragNodes(this.sigma(), this.sigma().renderers[0]);
+    }
+
     this._bindEvents();
     this._super(...arguments);
     this.sigma().refresh();
@@ -94,7 +129,13 @@ export default Ember.Component.extend(ParentMixin, {
 
   willDestroyParent: function() {
     this._super(...arguments);
+    if (this._enableDragNodes) {
+      sigma.plugins.killDragNodes(this.sigma());
+    }
     this._unbindEvents();
+    if (this._forceAtlas2) {
+      this.sigma().killForceAtlas2();
+    }
     this.sigma().kill();
     delete this.sigma();
   },
@@ -103,5 +144,11 @@ export default Ember.Component.extend(ParentMixin, {
     this.get('events').forEach((eventName) => {
       this.sigma().unbind(eventName);
     });
+
+    if (this._enableDragNodes && this._dragListener) {
+      this.get('dragEvents').forEach((eventName) => {
+        this._dragListener.unbind(eventName);
+      });
+    }
   }
 });

@@ -69,23 +69,23 @@ test('takes existing sigma instance', function(assert) {
 });
 
 test('batch data', function(assert) {
-  this.set('model', { batchData: {
+  this.set('model', { graphData: {
       nodes: [{ id: 'n0' }, { id: 'n1' }],
       edges: [{ id: 'e0', source: 'n0', target: 'n1'}]
     }
   });
-  this.render(hbs`{{#sigma-graph batchData=model.batchData }}
+  this.render(hbs`{{#sigma-graph graphData=model.graphData }}
                   {{/sigma-graph}}`);
   assert.equal(sigmaGraph._sigma.graph.nodes().length, 2);
 });
 
 test('new child components allowed given batch data', function(assert) {
-  this.set('model', { batchData: {
+  this.set('model', { graphData: {
       nodes: [{ id: 'n0' }, { id: 'n1' }],
       edges: [{ id: 'e0', source: 'n0', target: 'n1'}]
     }
   });
-  this.render(hbs`{{#sigma-graph batchData=model.batchData }}
+  this.render(hbs`{{#sigma-graph graphData=model.graphData }}
                     {{#graph-node id="n2" label="goodbye" x=0 y=1 size=10 color="#f00"}}
                     {{/graph-node}}
                   {{/sigma-graph}}`);
