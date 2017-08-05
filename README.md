@@ -51,7 +51,7 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 | --- | --- | --- |
 | settings | settings | An object including any of [these](https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings). In addition, the included edgeLabel plugin specifies [label settings](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.edgeLabels). |
 | graphData | None. Passed to the sigma instance's `graph` option on instantiation. | Format example: `{ nodes: [{id: 'n1', label: 'Hello', etc.},{id: 'n2', label: 'World', etc.}], edges: [{id: 'e0', label: 'the edge'}] }` See the two tables for graph-node and graph-edge below. |
-| rendererType | None. Passed to `renderer` argument of sigma instance as `type`. | `canvas` or `webgl` if WebGL is enabled. Default is `canvas` |
+| rendererType | None. Passed to 'renderer' argument of sigma instance as 'type'. Each SigmaGraph is assigned 1 renderer. | 'canvas' or 'webgl' if WebGL is enabled. Default is 'canvas' |
 | rendererSettings | None. Passed to `renderer` argument of sigma instance as `settings`. | An object including any of  [these](https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings) |
 | camera | camera | camera string id. |
 | forceAtlas2Settings | None. Passed to `startForceAtlas2` on sigma instance. | Plugin settings [here](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.layout.forceAtlas2) |
@@ -158,6 +158,7 @@ More will be supported in future releases.
 The addon utilizes the parent-child helper pattern developed in [ember-composability-tools](https://github.com/miguelcobain/ember-composability-tools).
 
 GraphNodes and GraphEdges are tagless (empty `tagName`) child components of the SigmaGraph component. They are not strictly necessary, but they provide convenience.
+The SigmaGraph component has one renderer and camera.
 
 This addon is still experimental. Contributions are welcome and encouraged. There may be issues with either this addon or the [sigma.js library](https://github.com/jacomyal/sigma.js/issues), so it's worth taking a look there to see if the issue has already been noticed.
 
