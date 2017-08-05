@@ -8,6 +8,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('graph');
+  this.route('force-graph');
 });
 
 export default Router;
