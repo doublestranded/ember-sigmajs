@@ -51,7 +51,7 @@ export default Ember.Component.extend(ParentMixin, {
 
   _bindEvents: function() {
     this.get('events').forEach((eventName) => {
-      if (this.get(eventName) !== undefined) {
+      if (typeof this.get(eventName) !== "undefined") {
         this.sigma().bind(eventName, this.get(eventName));
       }
     });
