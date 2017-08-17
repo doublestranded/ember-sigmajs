@@ -1,6 +1,6 @@
 /* eslint-env node */
 module.exports = {
-  description: '',
+  description: 'add sigma npm package',
 
   normalizeEntityName: function() {},
 

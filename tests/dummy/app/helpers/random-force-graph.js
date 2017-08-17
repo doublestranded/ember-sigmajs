@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export default Ember.Helper.helper(function(params) {
+export default Ember.Helper.helper(function() {
   // From https://github.com/jacomyal/sigma.js/blob/master/examples/force.html
   var i,
       o,
