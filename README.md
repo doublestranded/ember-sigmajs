@@ -1,4 +1,4 @@
-# ember-sigmajs
+# ember-sigmajs [![Build Status](https://travis-ci.org/doublestranded/ember-sigmajs.svg)](https://travis-ci.org/doublestranded/ember-sigmajs) [![Ember Observer Score](http://emberobserver.com/badges/ember-sigmajs.svg)](http://emberobserver.com/addons/ember-sigmajs) [![npm version](https://badge.fury.io/js/ember-sigmajs.svg)](https://badge.fury.io/js/ember-sigmajs)
 
 Ember addon for [sigma.js](https://github.com/jacomyal/sigma.js)
 
