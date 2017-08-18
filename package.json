@@ -1,6 +1,6 @@
 {
   "name": "ember-sigmajs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ember addon for the sigma.js graph drawing library",
   "keywords": [
     "ember-addon",
