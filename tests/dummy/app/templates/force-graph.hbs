@@ -1,11 +1,4 @@
 <button {{action "toggleGraph"}}>Hide Graph</button>
 {{#if showGraph}}
-  {{#sigma-graph forceAtlas2=model.forceAtlas2Settings graphData=model.graphData}}
-    {{#each model.nodes as |node|}}
-      {{#graph-node id=node.id label=node.label x=node.x y=node.y size=node.size color=node.color type=node.type image=node.image}}{{/graph-node}}
-    {{/each}}
-    {{#each model.edges as |edge|}}
-      {{#graph-edge id=edge.id source=edge.source target=edge.target size=edge.size type=edge.type}}{{/graph-edge}}
-    {{/each}}
-  {{/sigma-graph}}
+  {{#random-force-graph model=model}}{{/random-force-graph}}
 {{/if}}
