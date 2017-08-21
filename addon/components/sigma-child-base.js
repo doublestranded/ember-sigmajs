@@ -13,7 +13,7 @@ export default Ember.Component.extend(ChildMixin, {
     return this.get('parentComponent').graphModel();
   },
 
-  _changeProperty: function(element, property) {
+  _changeProperty: function() {
     this.sigma().refresh();
   },
 
