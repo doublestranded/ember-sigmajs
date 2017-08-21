@@ -6,3 +6,7 @@
 
 * build, ember observer, npm badges (2b9e0b69)
 * cleaning dependencies
+
+#### 1.0.0
+
+* Initial release
