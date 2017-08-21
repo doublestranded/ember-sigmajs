@@ -13,6 +13,32 @@ export default Ember.Component.extend(ChildMixin, {
     return this.get('parentComponent').graphModel();
   },
 
+  _changeProperty: function(element, property) {
+    this.sigma().refresh();
+  },
+
+  _addObservers: function() {
+    this.get('properties').forEach(function(property){
+      this.addObserver(property, this, this._changeProperty);
+    }, this);
+  },
+
+  _removeObservers: function() {
+    this.get('properties').forEach(function(property){
+      this.removeObserver(property, this, this._changeProperty);
+    }, this);
+  },
+
+  didInsertParent: function() {
+    this._super(...arguments);
+    this._addObservers();
+  },
+
+  willDestroyParent: function() {
+    this._super(...arguments);
+    this._removeObservers();
+  },
+
   getAttrs: function() {
     let attrs = { id: this.get('id') };
     this.get('attrNames').forEach((attr) => {

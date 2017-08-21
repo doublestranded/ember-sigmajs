@@ -5,9 +5,11 @@ import { ParentMixin } from 'ember-composability-tools';
 
 export default Ember.Component.extend(ParentMixin, {
 
-  attributeBindings: ['sigmaInst', 'settings', 'graphData', 'rendererType', 'rendererSettings', 'camera'],
+  attributeBindings: ['sigmaInst', 'settings', 'rendererType', 'rendererSettings', 'camera'],
 
   classNames: ['sigma-graph'],
+
+  graphData: {},
 
   settings: {},
 
@@ -72,6 +74,25 @@ export default Ember.Component.extend(ParentMixin, {
     }
   },
 
+  _changeGraphData: function() {
+    try {
+      this.graphModel().clear();
+      this.graphModel().read(this.get('graphData'));
+      this.sigma().refresh();
+    }
+    catch(e) {
+      Ember.Logger.error(e);
+    }
+  },
+
+  _addObservers: function() {
+    this.addObserver('graphData', this, this._changeGraphData);
+  },
+
+  _removeObservers: function() {
+    this.removeObserver('graphData', this, this._changeGraphData);
+  },
+
   _addSigmaInst: function(sigmaInst, renderer) {
     this._sigma = sigmaInst;
     this._sigma.addRenderer(renderer);
@@ -122,6 +143,7 @@ export default Ember.Component.extend(ParentMixin, {
       this._dragListener = new sigma.plugins.dragNodes(this.sigma(), this.sigma().renderers[0]);
     }
 
+    this._addObservers();
     this._bindEvents();
     this._super(...arguments);
     this.sigma().refresh();
@@ -132,6 +154,7 @@ export default Ember.Component.extend(ParentMixin, {
     if (this._enableDragNodes) {
       sigma.plugins.killDragNodes(this.sigma());
     }
+    this._removeObservers();
     this._unbindEvents();
     if (this._forceAtlas2) {
       this.sigma().killForceAtlas2();

@@ -5,6 +5,14 @@ export default SigmaChildBase.extend({
 
   attrNames: ['source', 'target', 'label', 'size', 'color', 'type'],
 
+  properties: ['label', 'size', 'color', 'type'],
+
+  _changeProperty: function(node, property) {
+    let child = this.graphModel().edges(this.id);
+    child[property] = this.get(property);
+    this._super(...arguments);
+  },
+
   didInsertParent: function() {
     this._super(...arguments);
     if (this.get('parentComponent')) {
