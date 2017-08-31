@@ -4,9 +4,6 @@ import { ParentMixin } from 'ember-composability-tools';
 /*global CustomShapes */
 
 export default Ember.Component.extend(ParentMixin, {
-
-  attributeBindings: ['sigmaInst', 'settings', 'graphData', 'rendererType', 'rendererSettings', 'camera'],
-
   classNames: ['sigma-graph'],
 
   settings: {},
