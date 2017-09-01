@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { ChildMixin } from 'ember-composability-tools';
+import diffAttrs from 'ember-diff-attrs';
 
 export default Ember.Component.extend(ChildMixin, {
 
@@ -17,26 +18,30 @@ export default Ember.Component.extend(ChildMixin, {
     this.sigma().refresh();
   },
 
-  _addObservers: function() {
-    this.get('properties').forEach(function(property){
-      this.addObserver(property, this, this._changeProperty);
-    }, this);
-  },
-
-  _removeObservers: function() {
-    this.get('properties').forEach(function(property){
-      this.removeObserver(property, this, this._changeProperty);
-    }, this);
+  didReceiveAttrs: function(){
+    this._super(...arguments);
+    if (!this.get('diffAttrsFunc')) {
+      this.set('diffAttrsFunc', diffAttrs({
+        keys: this.get('properties'),
+        hook: function(changedAttrs, ...args) {
+          this._super(...args);
+          if(changedAttrs) {
+            Object.keys(changedAttrs).forEach(function(attr){
+              this._changeProperty(attr);
+            }, this);
+          }
+        }
+      }));
+    }
+    this.get('diffAttrsFunc').apply(this);
   },
 
   didInsertParent: function() {
     this._super(...arguments);
-    this._addObservers();
   },
 
   willDestroyParent: function() {
     this._super(...arguments);
-    this._removeObservers();
   },
 
   getAttrs: function() {

@@ -4,9 +4,6 @@ export default Ember.Component.extend({
   onClick: function() {
     // console.log('test click');
   },
-  onClickNode: function(/*node*/) {
-    // console.log('test click node ' + node.data.node.label);
-  },
   onOverNode: function(/*node*/) {
     // console.log('test over node ' + node.data.node.label);
   },
@@ -31,6 +28,9 @@ export default Ember.Component.extend({
     },
     toggleGraph: function() {
       this.sendAction('toggleGraph');
-    }
+    },
+    onClickNode: function(/*node*/) {
+      this.sendAction('onClickNode');
+    },
   }
 });

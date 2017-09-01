@@ -14,6 +14,9 @@ export default Ember.Controller.extend({
     },
     toggleGraph() {
       this.toggleProperty('showGraph');
+    },
+    onClickNode: function() {
+      this.set('model.nodeColor', '#f0f');
     }
   }
 });

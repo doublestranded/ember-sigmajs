@@ -2,15 +2,39 @@
 <button {{action "toggleEdge"}}>Hide Edge</button>
 <button {{action "toggleNode"}}>Hide Node</button>
 {{#if showGraph}}
-  {{#sigma-graph dragend=onDragEnd clickNode=onClickNode overEdge=onOverEdge overNode=onOverNode settings=model.settings rendererSettings=model.rendererSettings enableDragNodes=model.enableDragNodes}}
+  {{#sigma-graph
+    dragend=onDragEnd
+    clickNode=(action "onClickNode")
+    overEdge=onOverEdge
+    overNode=onOverNode
+    settings=model.settings
+    rendererSettings=model.rendererSettings
+    enableDragNodes=model.enableDragNodes}}
     {{#if showNodes}}
       {{#each model.nodes as |node|}}
-        {{#graph-node id=node.id label=node.label x=node.x y=node.y size=node.size color=node.color type=node.type image=node.image}}{{/graph-node}}
+        {{#graph-node
+          id=node.id
+          label=node.label
+          x=node.x
+          y=node.y
+          size=node.size
+          color=model.nodeColor
+          type=node.type
+          image=node.image}}
+        {{/graph-node}}
       {{/each}}
     {{/if}}
     {{#if showEdges}}
       {{#each model.edges as |edge|}}
-        {{#graph-edge overEdge=onOverEdge id=edge.id source=edge.source target=edge.target size=edge.size type=edge.type label=edge.label}}{{/graph-edge}}
+        {{#graph-edge
+          overEdge=onOverEdge
+          id=edge.id
+          source=edge.source
+          target=edge.target
+          size=edge.size
+          type=edge.type
+          label=edge.label}}
+        {{/graph-edge}}
       {{/each}}
     {{/if}}
   {{/sigma-graph}}

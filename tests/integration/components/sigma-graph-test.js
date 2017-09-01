@@ -91,3 +91,18 @@ test('new child components allowed given batch data', function(assert) {
                   {{/sigma-graph}}`);
   assert.equal(sigmaGraph._sigma.graph.nodes().length, 3);
 });
+
+test('batch data updated', function(assert) {
+  this.set('graphData', {
+      nodes: [{ id: 'n0' }, { id: 'n1' }],
+      edges: [{ id: 'e0', source: 'n0', target: 'n1'}]
+  });
+  this.render(hbs`{{#sigma-graph graphData=graphData }}
+                  {{/sigma-graph}}`);
+  assert.equal(sigmaGraph._sigma.graph.nodes().length, 2);
+  this.set('graphData', {
+      nodes: [{ id: 'n0' }, { id: 'n1' }, { id: 'n2'}],
+      edges: [{ id: 'e0', source: 'n0', target: 'n1'}]
+  });
+  assert.equal(sigmaGraph._sigma.graph.nodes().length, 3);
+});
