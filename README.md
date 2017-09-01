@@ -18,10 +18,19 @@ In the template where you want your graph, you can pass in a sigma instance dire
 or with GraphNode and GraphEdge child components (with some attribute example values):
 
 ```
-{{#sigma-graph settings=mySettings rendererType=myRendererType rendererSettings=myRendererSettings}}
+{{#sigma-graph
+  settings=mySettings
+  rendererType=myRendererType
+  rendererSettings=myRendererSettings}}
 
   {{#each myNodes as |myNode|}}
-    {{graph-node id=myNode.id label=myNode.labelString x=0 y=1 size=1 color='#f00'}}
+    {{graph-node
+      id=myNode.id
+      label=myNode.labelString
+      x=0
+      y=1
+      size=1
+      color='#f00'}}
     {{/graph-node}}
   {{/each}}
 
@@ -36,7 +45,11 @@ or with GraphNode and GraphEdge child components (with some attribute example va
 or with graphData specifying lists of nodes and edges (see the table below for more details):
 
 ```
-{{#sigma-graph graphData=mygraphData settings=mySettings rendererType=myRendererType rendererSettings=myRendererSettings}}
+{{#sigma-graph
+  graphData=mygraphData
+  settings=mySettings
+  rendererType=myRendererType
+  rendererSettings=myRendererSettings}}
 {{/sigma-graph}}
 ```
 
@@ -160,7 +173,7 @@ The addon utilizes the parent-child helper pattern developed in [ember-composabi
 GraphNodes and GraphEdges are tagless (empty `tagName`) child components of the SigmaGraph component. They are not strictly necessary, but they provide convenience.
 The SigmaGraph component has one renderer and camera.
 
-This addon is still experimental. Contributions are welcome and encouraged. There may be issues with either this addon or the [sigma.js library](https://github.com/jacomyal/sigma.js/issues), so it's worth taking a look there to see if the issue has already been noticed.
+Contributions are welcome and encouraged. There may be issues with either this addon or the [sigma.js library](https://github.com/jacomyal/sigma.js/issues), so it's worth taking a look there to see if the issue has already been noticed.
 
 ### Wishlist
 
