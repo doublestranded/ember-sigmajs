@@ -7,7 +7,7 @@ export default SigmaChildBase.extend({
 
   properties: ['label', 'size', 'color', 'type'],
 
-  _changeProperty: function(node, property) {
+  _changeProperty: function(property) {
     let child = this.graphModel().edges(this.id);
     child[property] = this.get(property);
     this._super(...arguments);

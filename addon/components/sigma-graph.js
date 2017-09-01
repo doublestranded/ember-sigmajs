@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { ParentMixin } from 'ember-composability-tools';
+import diffAttrs from 'ember-diff-attrs';
 /*global sigma */
 /*global CustomShapes */
 
@@ -82,13 +83,17 @@ export default Ember.Component.extend(ParentMixin, {
     }
   },
 
-  _addObservers: function() {
-    this.addObserver('graphData', this, this._changeGraphData);
-  },
-
-  _removeObservers: function() {
-    this.removeObserver('graphData', this, this._changeGraphData);
-  },
+  didReceiveAttrs: diffAttrs({
+    keys: ['graphData'],
+    hook: function(changedAttrs, ...args) {
+      this._super(...args);
+      if(changedAttrs) {
+        if (changedAttrs.graphData) {
+          this._changeGraphData();
+        }
+      }
+    }
+  }),
 
   _addSigmaInst: function(sigmaInst, renderer) {
     this._sigma = sigmaInst;
@@ -140,7 +145,6 @@ export default Ember.Component.extend(ParentMixin, {
       this._dragListener = new sigma.plugins.dragNodes(this.sigma(), this.sigma().renderers[0]);
     }
 
-    this._addObservers();
     this._bindEvents();
     this._super(...arguments);
     this.sigma().refresh();
@@ -151,7 +155,6 @@ export default Ember.Component.extend(ParentMixin, {
     if (this._enableDragNodes) {
       sigma.plugins.killDragNodes(this.sigma());
     }
-    this._removeObservers();
     this._unbindEvents();
     if (this._forceAtlas2) {
       this.sigma().killForceAtlas2();
