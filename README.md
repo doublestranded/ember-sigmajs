@@ -58,6 +58,18 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
+### Style
+
+The SigmaGraph component applies the className `sigma-graph` for its `div` element. Then, for example, you can style like this:
+
+```
+.sigma-graph {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+```
+
 ### Attributes
 
 Note that currently some component attributes can be updated, while others cannot.
@@ -179,7 +191,7 @@ Contributions are welcome and encouraged. There may be issues with either this a
 
 ### Wishlist
 
-* Child components can have multiple parents; e.g., an edge has two node parents
+* Evaluate performance
 * Finish integrating plugins
 
 ## Running Tests
