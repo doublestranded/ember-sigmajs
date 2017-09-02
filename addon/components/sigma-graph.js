@@ -1,13 +1,13 @@
 import Ember from 'ember';
 import { ParentMixin } from 'ember-composability-tools';
+import diffAttrs from 'ember-diff-attrs';
 /*global sigma */
 /*global CustomShapes */
 
 export default Ember.Component.extend(ParentMixin, {
-
-  attributeBindings: ['sigmaInst', 'settings', 'graphData', 'rendererType', 'rendererSettings', 'camera'],
-
   classNames: ['sigma-graph'],
+
+  graphData: {},
 
   settings: {},
 
@@ -17,7 +17,7 @@ export default Ember.Component.extend(ParentMixin, {
 
   _forceAtlas2: false,
 
-  _enableDragNodes: false,
+  _dragNodesEnabled: false,
 
   sigma: function() {
     return this._sigma;
@@ -62,19 +62,71 @@ export default Ember.Component.extend(ParentMixin, {
         this.sigma().bind(eventName, this.get(eventName));
       }
     });
+  },
 
-    if (this._enableDragNodes && this._dragListener) {
+  _changeGraphData: function() {
+    try {
+      this.graphModel().clear();
+      this.graphModel().read(this.get('graphData'));
+      this.sigma().refresh();
+    }
+    catch(e) {
+      Ember.Logger.error(e);
+    }
+  },
+
+  didReceiveAttrs: diffAttrs({
+    keys: ['graphData', 'enableDragNodes'],
+    hook: function(changedAttrs, ...args) {
+      this._super(...args);
+      if(changedAttrs) {
+        if (changedAttrs.graphData) {
+          this._changeGraphData();
+        }
+        if (changedAttrs.enableDragNodes) {
+          this._toggleDragNodes(changedAttrs.enableDragNodes[1]);
+        }
+      }
+    }
+  }),
+
+  _addSigmaInst: function(sigmaInst, renderer) {
+    this._sigma = sigmaInst;
+    this._sigma.addRenderer(renderer);
+  },
+
+  _enableDragNodes: function() {
+    if (this._dragNodesListener) {
       this.get('dragEvents').forEach((eventName) => {
-        this._dragListener.bind(eventName, (e) => {
+        this._dragNodesListener.bind(eventName, (e) => {
           this.sendAction(eventName, e.data.node, this.sigma());
         });
       });
     }
   },
 
-  _addSigmaInst: function(sigmaInst, renderer) {
-    this._sigma = sigmaInst;
-    this._sigma.addRenderer(renderer);
+  _disableDragNodes: function() {
+    if (this._dragNodesListener) {
+      this.get('dragEvents').forEach((eventName) => {
+        this._dragNodesListener.unbind(eventName);
+      });
+    }
+  },
+
+  _toggleDragNodes: function(enableDragNodes) {
+    if (enableDragNodes) {
+      if (!this._dragNodesEnabled) {
+        this._dragNodesListener = new sigma.plugins.dragNodes(this.sigma(), this.sigma().renderers[0]);
+        this._enableDragNodes();
+      }
+    }
+    else {
+      if (this._dragNodesEnabled) {
+        sigma.plugins.killDragNodes(this.sigma());
+        this._disableDragNodes();
+      }
+    }
+    this._dragNodesEnabled = enableDragNodes;
   },
 
   didInsertParent: function() {
@@ -117,10 +169,7 @@ export default Ember.Component.extend(ParentMixin, {
       this.sigma().startForceAtlas2(forceAtlas2);
       this._forceAtlas2 = true;
     }
-    if (enableDragNodes) {
-      this._enableDragNodes = true;
-      this._dragListener = new sigma.plugins.dragNodes(this.sigma(), this.sigma().renderers[0]);
-    }
+    this._toggleDragNodes(enableDragNodes);
 
     this._bindEvents();
     this._super(...arguments);
@@ -129,9 +178,7 @@ export default Ember.Component.extend(ParentMixin, {
 
   willDestroyParent: function() {
     this._super(...arguments);
-    if (this._enableDragNodes) {
-      sigma.plugins.killDragNodes(this.sigma());
-    }
+    this._toggleDragNodes(false);
     this._unbindEvents();
     if (this._forceAtlas2) {
       this.sigma().killForceAtlas2();
@@ -144,11 +191,5 @@ export default Ember.Component.extend(ParentMixin, {
     this.get('events').forEach((eventName) => {
       this.sigma().unbind(eventName);
     });
-
-    if (this._enableDragNodes && this._dragListener) {
-      this.get('dragEvents').forEach((eventName) => {
-        this._dragListener.unbind(eventName);
-      });
-    }
   }
 });

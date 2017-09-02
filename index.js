@@ -10,9 +10,6 @@ module.exports = {
   included: function(app) {
     this._super.included.apply(this, arguments);
 
-    // Borrowed from a few existing addons:
-    // e.g. https://github.com/jamesleebaker/ember-truncate/blob/0fc5b9811ac7d8b30e610ebdc1e290b37c9ffdb3/index.js
-
     // If the addon has the _findHost() method (in ember-cli >= 2.7.0), we'll just
     // use that.
     if (typeof this._findHost === 'function') {

@@ -58,42 +58,56 @@ NOTE: you can still add graph-node and graph-edge child components with graphDat
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
+### Style
+
+The SigmaGraph component applies the className `sigma-graph` for its `div` element. Then, for example, you can style like this:
+
+```
+.sigma-graph {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+```
+
 ### Attributes
 
-| sigma-graph attribute | sigma.js equivalent | description |
-| --- | --- | --- |
-| settings | settings | An object including any of [these](https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings). In addition, the included edgeLabel plugin specifies [label settings](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.edgeLabels). |
-| graphData | None. Passed to the sigma instance's `graph` option on instantiation. | Format example: `{ nodes: [{id: 'n1', label: 'Hello', etc.},{id: 'n2', label: 'World', etc.}], edges: [{id: 'e0', label: 'the edge'}] }` See the two tables for graph-node and graph-edge below. |
-| rendererType | None. Passed to 'renderer' argument of sigma instance as 'type'. Each SigmaGraph is assigned 1 renderer. | 'canvas' or 'webgl' if WebGL is enabled. Default is 'canvas' |
-| rendererSettings | None. Passed to `renderer` argument of sigma instance as `settings`. | An object including any of  [these](https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings) |
-| camera | camera | camera string id. |
-| forceAtlas2Settings | None. Passed to `startForceAtlas2` on sigma instance. | Plugin settings [here](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.layout.forceAtlas2) |
-| enableDragNodes | None. Enables dragNodes plugin. | | |
+Note that currently some component attributes can be updated, while others cannot.
 
-| graph-node attribute | sigma.js equivalent | description |
-| --- | --- | --- |
-| id | id | unique id for node object |
-| label | label | String label |
-| x | x | Number |
-| y | y | Number |
-| size | size | Number |
-| color | color | color hex |
-| type | type | One of: `square`,`circle`,`cross`,`equilateral`,`star`,`diamond`,`pacman` |
-| image | image | Object with property names: `url`, `clip`, `scale`, `w`, `h`. Use one of `type` when using `image`. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) |
-| equilateral | equilateral | Object with property names: `rotate`, `numPoints`. Use when type=`equilateral`. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) |
-| star | star | Object with property names: `innerRatio`, `numPoints`. Use when type=`star`. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) |
-| cross | cross | Object with property name: `lineWeight`. Use when type=`cross`. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) | |
+| sigma-graph attribute | sigma.js equivalent | description | can be updated |
+| --- | --- | --- | --- |
+| settings | settings | An object including any of [these](https://github.com/jacomyal/sigma.js/wiki/Settings#graph-settings). In addition, the included edgeLabel plugin specifies [label settings](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.edgeLabels). | No |
+| graphData | None. Passed to the sigma instance's `graph` option on instantiation. | Format example: `{ nodes: [{id: 'n1', label: 'Hello', etc.},{id: 'n2', label: 'World', etc.}], edges: [{id: 'e0', label: 'the edge'}] }` See the two tables for graph-node and graph-edge below. | Yes |
+| rendererType | None. Passed to 'renderer' argument of sigma instance as 'type'. Each SigmaGraph is assigned 1 renderer. | 'canvas' or 'webgl' if WebGL is enabled. Default is 'canvas' | No |
+| rendererSettings | None. Passed to `renderer` argument of sigma instance as `settings`. | An object including any of  [these](https://github.com/jacomyal/sigma.js/wiki/Settings#renderers-settings) | No |
+| camera | camera | camera string id. | No |
+| forceAtlas2Settings | None. Passed to `startForceAtlas2` on sigma instance. | Plugin settings [here](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.layout.forceAtlas2) | No |
+| enableDragNodes | None. | Boolean that enables dragNodes plugin. | Yes | |
+
+| graph-node attribute | sigma.js equivalent | description | can be updated |
+| --- | --- | --- | --- |
+| id | id | unique id for node object | no |
+| label | label | String label | yes |
+| x | x | Number | yes |
+| y | y | Number | yes |
+| size | size | Number | yes |
+| color | color | color hex | yes |
+| type | type | One of: `square`,`circle`,`cross`,`equilateral`,`star`,`diamond`,`pacman` | yes |
+| image | image | Object with property names: `url`, `clip`, `scale`, `w`, `h`. Use one of `type` when using `image`. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) | yes |
+| equilateral | equilateral | Object with property names: `rotate`, `numPoints`. Use when type=`equilateral`. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) | yes |
+| star | star | Object with property names: `innerRatio`, `numPoints`. Use when type=`star`. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) | yes |
+| cross | cross | Object with property name: `lineWeight`. Use when type=`cross`. [More here.](https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.renderers.customShapes) | yes | |
 
 
-| graph-edge attribute | sigma.js equivalent | description |
-| --- | --- | --- |
-| id | id | unique id for edge object |
-| label | label | String label |
-| source | source | source node id |
-| target | target | target node id |
-| size | size | Number |
-| color | color | color hex |
-| type | type | One of: `def`, `arrow`, `curve`, `curvedArrow`, `dashed`, `dotted`, `parallel`, `tapered` |
+| graph-edge attribute | sigma.js equivalent | description | can be updated |
+| --- | --- | --- | --- |
+| id | id | unique id for edge object | no |
+| label | label | String label | yes |
+| source | source | source node id | yes |
+| target | target | target node id | yes |
+| size | size | Number | yes |
+| color | color | color hex | yes |
+| type | type | One of: `def`, `arrow`, `curve`, `curvedArrow`, `dashed`, `dotted`, `parallel`, `tapered` | yes |
 
 ### Actions
 
@@ -177,7 +191,7 @@ Contributions are welcome and encouraged. There may be issues with either this a
 
 ### Wishlist
 
-* Child components can have multiple parents; e.g., an edge has two node parents
+* Evaluate performance
 * Finish integrating plugins
 
 ## Running Tests
