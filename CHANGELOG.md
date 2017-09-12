@@ -1,3 +1,9 @@
+#### 1.1.1 (2017-09-12)
+
+##### Bug Fixes
+
+* ember-diff-attrs needs to be in dependencies (fa950cec)
+
 #### 1.1.0 (2017-09-02)
 
 ##### Documentation Changes
