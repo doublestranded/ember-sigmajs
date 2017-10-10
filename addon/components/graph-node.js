@@ -3,9 +3,9 @@ import SigmaChildBase from './sigma-child-base';
 
 export default SigmaChildBase.extend({
 
-  attrNames: ['label', 'x', 'y', 'size', 'color', 'type', 'image', 'star', 'equilateral', 'cross'],
+  sigmaProperties: ['label', 'x', 'y', 'size', 'color', 'type', 'image', 'star', 'equilateral', 'cross'],
 
-  properties: ['label', 'x', 'y', 'size', 'color', 'type', 'image', 'star', 'equilateral', 'cross'],
+  dynamicSigmaProperties: ['label', 'x', 'y', 'size', 'color', 'type', 'image', 'star', 'equilateral', 'cross'],
 
   _changeProperty: function(property) {
     let child = this.graphModel().nodes(this.id);
