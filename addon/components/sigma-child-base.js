@@ -44,11 +44,11 @@ export default Ember.Component.extend(ChildMixin, {
     this._super(...arguments);
   },
 
-  getAttrs: function() {
-    let attrs = { id: this.get('id') };
-    this.get('sigmaProperties').forEach((attr) => {
-      if (typeof this.get(attr) !== "undefined") attrs[attr] = this.get(attr);
+  getSigmaProperties: function() {
+    let props = { id: this.get('id') };
+    this.get('sigmaProperties').forEach((prop) => {
+      if (typeof this.get(prop) !== "undefined") props[prop] = this.get(prop);
     });
-    return attrs;
+    return props;
   }
 });

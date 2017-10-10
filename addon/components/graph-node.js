@@ -17,7 +17,7 @@ export default SigmaChildBase.extend({
     this._super(...arguments);
     if (this.get('parentComponent')) {
       try {
-          this.graphModel().addNode(this.getAttrs());
+          this.graphModel().addNode(this.getSigmaProperties());
           this.sigma().refresh();
       }
       catch(e) {

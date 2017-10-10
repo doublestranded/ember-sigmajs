@@ -16,7 +16,7 @@ export default SigmaChildBase.extend({
   didInsertParent: function() {
     this._super(...arguments);
     if (this.get('parentComponent')) {
-      let attrs = this.getAttrs();
+      let attrs = this.getSigmaProperties();
       if (this.graphModel().nodes(attrs.source) && this.graphModel().nodes(attrs.target)) {
         try {
             this.graphModel().addEdge(attrs);
