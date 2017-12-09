@@ -1,3 +1,9 @@
+#### 1.1.2 (2017-12-09)
+
+##### Documentation Changes
+
+* fixed demo link
+
 #### 1.1.1 (2017-09-12)
 
 ##### Bug Fixes

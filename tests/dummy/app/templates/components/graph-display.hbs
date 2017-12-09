@@ -1,6 +1,9 @@
-<button {{action "toggleGraph"}}>Hide Graph</button>
-<button {{action "toggleEdge"}}>Hide Edge</button>
-<button {{action "toggleNode"}}>Hide Node</button>
+<fieldset>
+  <legend>Toggle (destroy / render) graph element:</legend>
+  <button {{action "toggleGraph"}}>Toggle Graph</button>
+  <button {{action "toggleEdge"}}>Toggle Edge</button>
+  <button {{action "toggleNode"}}>Toggle Node</button>
+</fieldset>
 {{#if showGraph}}
   {{#sigma-graph
     dragend=onDragEnd

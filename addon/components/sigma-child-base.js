@@ -22,7 +22,7 @@ export default Ember.Component.extend(ChildMixin, {
     this._super(...arguments);
     if (!this.get('diffAttrsFunc')) {
       this.set('diffAttrsFunc', diffAttrs({
-        keys: this.get('properties'),
+        keys: this.get('dynamicSigmaProperties'),
         hook: function(changedAttrs, ...args) {
           this._super(...args);
           if(changedAttrs) {
@@ -44,11 +44,11 @@ export default Ember.Component.extend(ChildMixin, {
     this._super(...arguments);
   },
 
-  getAttrs: function() {
-    let attrs = { id: this.get('id') };
-    this.get('attrNames').forEach((attr) => {
-      if (typeof this.get(attr) !== "undefined") attrs[attr] = this.get(attr);
+  getSigmaProperties: function() {
+    let props = { id: this.get('id') };
+    this.get('sigmaProperties').forEach((prop) => {
+      if (typeof this.get(prop) !== "undefined") props[prop] = this.get(prop);
     });
-    return attrs;
+    return props;
   }
 });
