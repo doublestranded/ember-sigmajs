@@ -1,3 +1,9 @@
+#### 1.1.3 (2018-05-09)
+
+##### Other Changes
+
+*  version upgrades (72ac6e1b)
+
 #### 1.1.2 (2017-12-09)
 
 ##### Documentation Changes
