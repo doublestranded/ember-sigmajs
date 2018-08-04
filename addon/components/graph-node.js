@@ -7,12 +7,6 @@ export default SigmaChildBase.extend({
 
   dynamicSigmaProperties: ['label', 'x', 'y', 'size', 'color', 'type', 'image', 'star', 'equilateral', 'cross'],
 
-  _changeProperty: function(property) {
-    let child = this.graphModel().nodes(this.id);
-    child[property] = this.get(property);
-    this._super(...arguments);
-  },
-
   didInsertParent: function() {
     this._super(...arguments);
     if (this.get('parentComponent')) {
@@ -34,5 +28,11 @@ export default SigmaChildBase.extend({
         this.sigma().refresh();
       }
     }
+  },
+
+  _changeProperty: function(property) {
+    let child = this.graphModel().nodes(this.id);
+    child[property] = this.get(property);
+    this._super(...arguments);
   }
 });

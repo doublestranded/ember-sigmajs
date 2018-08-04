@@ -1,21 +1,18 @@
 import Ember from 'ember';
 import { ChildMixin } from 'ember-composability-tools';
 import diffAttrs from 'ember-diff-attrs';
+import { assert } from '@ember/debug';
 
 export default Ember.Component.extend(ChildMixin, {
 
   tagName: '',
 
-  sigma: function() {
-    return this.get('parentComponent').sigma();
-  },
-
-  graphModel: function() {
-    return this.get('parentComponent').graphModel();
-  },
-
-  _changeProperty: function() {
-    this.sigma().refresh();
+  init: function() {
+    assert(
+      `Tried to use ${this} outside the context of a parent component.`,
+      this.get('parentComponent')
+    );
+    this._super(...arguments);
   },
 
   didReceiveAttrs: function(){
@@ -42,6 +39,18 @@ export default Ember.Component.extend(ChildMixin, {
 
   willDestroyParent: function() {
     this._super(...arguments);
+  },
+
+  sigma: function() {
+    return this.get('parentComponent').sigma();
+  },
+
+  graphModel: function() {
+    return this.get('parentComponent').graphModel();
+  },
+
+  _changeProperty: function() {
+    this.sigma().refresh();
   },
 
   getSigmaProperties: function() {
