@@ -30,6 +30,7 @@
     "ember-diff-attrs": "^0.2.1"
   },
   "devDependencies": {
+    "bower": "^1.8.2",
     "broccoli-asset-rev": "^2.7.0",
     "ember-ajax": "^3.1.0",
     "ember-browserify": "^1.2.2",
@@ -48,11 +49,11 @@
     "ember-load-initializers": "^1.1.0",
     "ember-qunit-assert-helpers": "^0.2.1",
     "ember-resolver": "^4.5.5",
+    "ember-source": "^3.4.1",
     "ember-try": "^0.2.23",
     "loader.js": "^4.7.0",
     "requirejs": "^2.3.5",
-    "sigma": "^1.2.1",
-    "bower": "^1.8.2"
+    "sigma": "^1.2.1"
   },
   "engines": {
     "node": ">= 4"
