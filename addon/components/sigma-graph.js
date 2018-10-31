@@ -19,6 +19,79 @@ export default Ember.Component.extend(ParentMixin, {
 
   _dragNodesEnabled: false,
 
+  didReceiveAttrs: diffAttrs({
+    keys: ['graphData', 'enableDragNodes'],
+    hook: function(changedAttrs, ...args) {
+      this._super(...args);
+      if(changedAttrs) {
+        if (changedAttrs.graphData) {
+          this._changeGraphData();
+        }
+        if (changedAttrs.enableDragNodes) {
+          this._toggleDragNodes(changedAttrs.enableDragNodes[1]);
+        }
+      }
+    }
+  }),
+
+  didInsertParent: function() {
+    const { sigmaInst,
+            element,
+            settings,
+            graphData,
+            rendererType,
+            rendererSettings,
+            camera,
+            forceAtlas2,
+            enableDragNodes } = this;
+    let options = {
+      renderer: {
+        container: element,
+        type: rendererType,
+        settings: rendererSettings,
+        camera: camera
+      },
+      settings: settings
+    }
+    if (graphData) {
+      options['graph'] = graphData;
+    }
+    try {
+      if (sigmaInst) {
+          this._addSigmaInst(sigmaInst, options.renderer);
+      }
+      else {
+          this._sigma = new sigma(options);
+      }
+    }
+    catch(e) {
+      Ember.Logger.error(e);
+    }
+
+    //plugin
+    CustomShapes.init(this.sigma());
+    if (forceAtlas2 !== undefined) {
+      this.sigma().startForceAtlas2(forceAtlas2);
+      this._forceAtlas2 = true;
+    }
+    this._toggleDragNodes(enableDragNodes);
+
+    this._bindEvents();
+    this._super(...arguments);
+    this.sigma().refresh();
+  },
+
+  willDestroyParent: function() {
+    this._super(...arguments);
+    this._toggleDragNodes(false);
+    this._unbindEvents();
+    if (this._forceAtlas2) {
+      this.sigma().killForceAtlas2();
+    }
+    this.sigma().kill();
+    delete this.sigma();
+  },
+
   sigma: function() {
     return this._sigma;
   },
@@ -77,21 +150,6 @@ export default Ember.Component.extend(ParentMixin, {
     }
   },
 
-  didReceiveAttrs: diffAttrs({
-    keys: ['graphData', 'enableDragNodes'],
-    hook: function(changedAttrs, ...args) {
-      this._super(...args);
-      if(changedAttrs) {
-        if (changedAttrs.graphData) {
-          this._changeGraphData();
-        }
-        if (changedAttrs.enableDragNodes) {
-          this._toggleDragNodes(changedAttrs.enableDragNodes[1]);
-        }
-      }
-    }
-  }),
-
   _addSigmaInst: function(sigmaInst, renderer) {
     this._sigma = sigmaInst;
     this._sigma.addRenderer(renderer);
@@ -129,64 +187,6 @@ export default Ember.Component.extend(ParentMixin, {
       }
     }
     this._dragNodesEnabled = enableDragNodes;
-  },
-
-  didInsertParent: function() {
-    const { sigmaInst,
-            element,
-            settings,
-            graphData,
-            rendererType,
-            rendererSettings,
-            camera,
-            forceAtlas2,
-            enableDragNodes } = this;
-    let options = {
-      renderer: {
-        container: element,
-        type: rendererType,
-        settings: rendererSettings,
-        camera: camera
-      },
-      settings: settings
-    }
-    if (graphData) {
-      options['graph'] = graphData;
-    }
-    try {
-      if (sigmaInst) {
-          this._addSigmaInst(sigmaInst, options.renderer);
-      }
-      else {
-          this._sigma = new sigma(options);
-      }
-    }
-    catch(e) {
-      Ember.Logger.error(e);
-    }
-
-    //plugin
-    CustomShapes.init(this.sigma());
-    if (forceAtlas2 !== undefined) {
-      this.sigma().startForceAtlas2(forceAtlas2);
-      this._forceAtlas2 = true;
-    }
-    this._toggleDragNodes(enableDragNodes);
-
-    this._bindEvents();
-    this._super(...arguments);
-    this.sigma().refresh();
-  },
-
-  willDestroyParent: function() {
-    this._super(...arguments);
-    this._toggleDragNodes(false);
-    this._unbindEvents();
-    if (this._forceAtlas2) {
-      this.sigma().killForceAtlas2();
-    }
-    this.sigma().kill();
-    delete this.sigma();
   },
 
   _unbindEvents: function() {

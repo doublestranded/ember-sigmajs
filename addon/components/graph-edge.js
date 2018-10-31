@@ -7,12 +7,6 @@ export default SigmaChildBase.extend({
 
   dynamicSigmaProperties: ['label', 'size', 'color', 'type'],
 
-  _changeProperty: function(property) {
-    let child = this.graphModel().edges(this.id);
-    child[property] = this.get(property);
-    this._super(...arguments);
-  },
-
   didInsertParent: function() {
     this._super(...arguments);
     if (this.get('parentComponent')) {
@@ -37,5 +31,11 @@ export default SigmaChildBase.extend({
         this.sigma().refresh();
       }
     }
+  },
+
+  _changeProperty: function(property) {
+    let child = this.graphModel().edges(this.id);
+    child[property] = this.get(property);
+    this._super(...arguments);
   }
 });
