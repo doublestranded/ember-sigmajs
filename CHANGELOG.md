@@ -1,3 +1,10 @@
+#### 1.1.4 (2019-02-16)
+
+* package updates
+* fixed major bug where sigma was in devDependencies
+* removing yarn.lock
+
+
 #### 1.1.3 (2018-05-09)
 
 ##### Other Changes
