@@ -50,7 +50,7 @@
     "ember-qunit-assert-helpers": "0.2.2",
     "ember-resolver": "5.1.1",
     "ember-source": "3.7.3",
-    "ember-try": "1.1.0",
+    "ember-try": "1.4.0",
     "loader.js": "4.7.0",
     "requirejs": "2.3.6"
   },
