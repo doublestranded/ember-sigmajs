@@ -34,7 +34,7 @@
     "broccoli-asset-rev": "3.0.0",
     "ember-ajax": "4.0.2",
     "ember-browserify": "1.2.2",
-    "ember-cli": "3.7.1",
+    "ember-cli": "^3.20.0",
     "ember-cli-dependency-checker": "3.1.0",
     "ember-cli-eslint": "5.1.0",
     "ember-cli-github-pages": "0.2.2",
@@ -50,12 +50,12 @@
     "ember-qunit-assert-helpers": "0.2.2",
     "ember-resolver": "5.1.1",
     "ember-source": "3.7.3",
-    "ember-try": "1.1.0",
+    "ember-try": "1.2.1",
     "loader.js": "4.7.0",
     "requirejs": "2.3.6"
   },
   "engines": {
-    "node": ">= 4"
+    "node": ">= 8"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
