@@ -55,7 +55,7 @@
     "requirejs": "2.3.6"
   },
   "engines": {
-    "node": ">= 8"
+    "node": ">= 10"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
