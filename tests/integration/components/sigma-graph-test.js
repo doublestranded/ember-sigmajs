@@ -22,16 +22,16 @@ module('sigma-graph', 'Integration | Component | sigma graph', function (hooks) 
 
   test('it renders', async function (assert) {
 
-    await render(hbs`{{sigma-graph}}`);
+    await render(hbs`<SigmaGraph />`);
 
     assert.equal(this.element.textContent.trim(), '');
   });
 
   test('it renders text', async function (assert) {
     await render(hbs`
-      {{#sigma-graph}}
+      <SigmaGraph >
         template block text
-      {{/sigma-graph}}
+      </SigmaGraph>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');
@@ -41,7 +41,7 @@ module('sigma-graph', 'Integration | Component | sigma graph', function (hooks) 
     this.set('onClick', (arg) => {
       assert.equal(arg.type, 'click');
     });
-    await render(hbs`{{#sigma-graph click=onClick}}{{/sigma-graph}}`);
+    await render(hbs`<SigmaGraph @click={{onClick}} />`);
     await click('.sigma-graph');
   });
 
@@ -50,10 +50,11 @@ module('sigma-graph', 'Integration | Component | sigma graph', function (hooks) 
       assert.equal(arg.data.node.id, 'n0');
       assert.equal(arg.type, 'clickNode');
     });
-    await render(hbs`{{#sigma-graph clickNode=(action onClickNode) }}
-                      {{#graph-node id="n0" label="hello" x=1 y=0 size=10 color="#f00"}}
-                      {{/graph-node}}
-                    {{/sigma-graph}}`);
+    await render(hbs`
+      <SigmaGraph @clickNode={{action onClickNode}} >
+        <GraphNode @id='n0' @label='hello' @x={{1}} @y={{0}} @size={{10}} @color='#f00' />
+      </SigmaGraph>
+    `);
 
     sigmaGraph._sigma.dispatchEvent('clickNode', { node: sigmaGraph._sigma.graph.nodes()[0] });
   });
@@ -61,8 +62,9 @@ module('sigma-graph', 'Integration | Component | sigma graph', function (hooks) 
   test('takes existing sigma instance', async function (assert) {
     let s = new sigma();
     this.set('model', { sigmaInst: s });
-    await render(hbs`{{#sigma-graph sigmaInst=model.sigmaInst }}
-                    {{/sigma-graph}}`);
+    await render(hbs`
+      <SigmaGraph @sigmaInst={{model.sigmaInst}} />
+    `);
 
     assert.equal(sigmaGraph._sigma, s);
   });
@@ -74,8 +76,9 @@ module('sigma-graph', 'Integration | Component | sigma graph', function (hooks) 
         edges: [{ id: 'e0', source: 'n0', target: 'n1' }]
       }
     });
-    await render(hbs`{{#sigma-graph graphData=model.graphData }}
-                    {{/sigma-graph}}`);
+    await render(hbs`
+      <SigmaGraph @graphData={{model.graphData}} />
+    `);
     assert.equal(sigmaGraph._sigma.graph.nodes().length, 2);
   });
 
@@ -86,10 +89,11 @@ module('sigma-graph', 'Integration | Component | sigma graph', function (hooks) 
         edges: [{ id: 'e0', source: 'n0', target: 'n1' }]
       }
     });
-    await render(hbs`{{#sigma-graph graphData=model.graphData }}
-                      {{#graph-node id="n2" label="goodbye" x=0 y=1 size=10 color="#f00"}}
-                      {{/graph-node}}
-                    {{/sigma-graph}}`);
+    await render(hbs`
+      <SigmaGraph @graphData={{model.graphData}} >
+        <GraphNode @id='n2' @label='goodby' @x={{0}} @y={{1}} @size={{10}} @color='#f00' />
+      </SigmaGraph>
+    `);
     assert.equal(sigmaGraph._sigma.graph.nodes().length, 3);
   });
 
@@ -98,8 +102,9 @@ module('sigma-graph', 'Integration | Component | sigma graph', function (hooks) 
       nodes: [{ id: 'n0' }, { id: 'n1' }],
       edges: [{ id: 'e0', source: 'n0', target: 'n1' }]
     });
-    await render(hbs`{{#sigma-graph graphData=graphData }}
-                    {{/sigma-graph}}`);
+    await render(hbs`
+      <SigmaGraph @graphData={{this.graphData}} />
+    `);
     assert.equal(sigmaGraph._sigma.graph.nodes().length, 2);
     this.set('graphData', {
       nodes: [{ id: 'n0' }, { id: 'n1' }, { id: 'n2' }],

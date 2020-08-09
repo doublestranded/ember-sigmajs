@@ -15,6 +15,6 @@ module('sigma-child-base', 'Integration | Component | sigma child base', functio
       assert.ok(err.message.match(/Tried to use .* outside the context of a parent component\./));
     });
 
-    await render(hbs`{{#sigma-child-base}}{{/sigma-child-base}}`);
+    await render(hbs`<SigmaChildBase />`);
   });
 });

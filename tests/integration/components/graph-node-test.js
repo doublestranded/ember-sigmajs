@@ -35,7 +35,7 @@ module('graph-node', 'Integration | Component | graph node', function (hooks) {
       assert.ok(err.message.match(/Tried to use .* outside the context of a parent component\./));
     });
 
-    await render(hbs`{{#graph-node}}{{/graph-node}}`);
+    await render(hbs`<GraphNode />`);
   });
 
   test('it renders with sigma-graph parent', async function (assert) {
@@ -43,10 +43,11 @@ module('graph-node', 'Integration | Component | graph node', function (hooks) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
 
-    await render(hbs`{{#sigma-graph}}
-                      {{#graph-node id="n0" label="hello" x=0 y=0 size=1 color="#f00"}}
-                      {{/graph-node}}
-                    {{/sigma-graph}}`);
+    await render(hbs`
+      <SigmaGraph>
+        <GraphNode @id='n0' @label='hello' @x={{0}} @y={{0}} @size={{1}} @color='#f00'/>
+      </SigmaGraph>
+    `);
 
     assert.equal(this.element.textContent.trim(), '');
   });
@@ -54,11 +55,12 @@ module('graph-node', 'Integration | Component | graph node', function (hooks) {
   test('it renders with sigma-graph parent and text', async function (assert) {
     // Template block usage:
     await render(hbs`
-      {{#sigma-graph}}
-        {{#graph-node id="n0" label="hello" x=0 y=0 size=1 color="#f00"}}
+      <SigmaGraph>
+        <GraphNode @id='n0' @label='hello' @x={{0}} @y={{0}} @size={{1}} @color='#f00'/>
+        <GraphEdge @id='e0' @source='n0' @target='n1'>
           template block text
-        {{/graph-node}}
-      {{/sigma-graph}}
+        </GraphEdge>
+      </SigmaGraph>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');
@@ -67,10 +69,9 @@ module('graph-node', 'Integration | Component | graph node', function (hooks) {
   test('node attributes updated', async function (assert) {
     this.set('color', '#f00');
     await render(hbs`
-      {{#sigma-graph}}
-        {{#graph-node id="n0" label="hello" x=0 y=0 size=1 color=color}}
-        {{/graph-node}}
-      {{/sigma-graph}}
+      <SigmaGraph>
+        <GraphNode @id='n0' @label='hello' @x={{0}} @y={{0}} @size={{1}} @color={{color}}/>
+      </SigmaGraph>
     `);
     assert.equal(sigmaGraph.graphModel().nodes(graphNode.id).color, '#f00');
     this.set('color', '#f0f');
