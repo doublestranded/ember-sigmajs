@@ -4,7 +4,7 @@ module.exports = {
 
   normalizeEntityName: function() {},
 
-  afterInstall: function(options) {
+  afterInstall: function() {
     return this.addPackageToProject('sigma', '1.2.1');
   }
 };
