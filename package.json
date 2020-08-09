@@ -18,8 +18,11 @@
   "repository": "https://github.com/doublestranded/ember-sigmajs",
   "scripts": {
     "build": "ember build",
-    "start": "ember server",
-    "test": "ember try:each"
+    "lint:hbs": "ember-template-lint .",
+    "lint:js": "eslint .",
+    "start": "ember serve",
+    "test": "ember test",
+    "test:all": "ember try:each"
   },
   "dependencies": {
     "broccoli-funnel": "2.0.2",
@@ -46,12 +49,11 @@
     "ember-export-application-global": "2.0.0",
     "ember-load-initializers": "2.0.0",
     "ember-qunit": "^4.6.0",
-    "ember-resolver": "5.1.1",
+    "ember-resolver": "^8.0.2",
     "ember-source": "^3.20.0",
     "ember-source-channel-url": "^3.0.0",
     "ember-try": "1.2.1",
-    "loader.js": "4.7.0",
-    "requirejs": "2.3.6"
+    "loader.js": "4.7.0"
   },
   "engines": {
     "node": ">= 10"
