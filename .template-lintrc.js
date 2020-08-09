@@ -4,4 +4,8 @@ module.exports = {
   rules: {
     'no-bare-strings': true,
   },
+
+  ignore: [
+    'tests/dummy/**',
+  ]
 };
