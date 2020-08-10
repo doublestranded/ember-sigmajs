@@ -1,12 +1,20 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test, setupRenderingTest } from 'ember-qunit';
+import { render, setupOnerror, resetOnerror } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('sigma-child-base', 'Integration | Component | sigma child base', {
-  integration: true
-});
 
-test('cannot be rendered without sigma-graph parent', function(assert) {
-  assert.expectAssertion(() => {
-    this.render(hbs`{{#sigma-child-base}}{{/sigma-child-base}}`);
-  }, /Assertion Failed: Tried to use .* outside the context of a parent component\./);
+module('sigma-child-base', 'Integration | Component | sigma child base', function (hooks) {
+  setupRenderingTest(hooks);
+
+  hooks.afterEach(function () {
+    resetOnerror();
+  });
+
+  test('cannot be rendered without sigma-graph parent', async function (assert) {
+    setupOnerror(function (err) {
+      assert.ok(err.message.match(/Tried to use .* outside the context of a parent component\./));
+    });
+
+    await render(hbs`<SigmaChildBase />`);
+  });
 });
